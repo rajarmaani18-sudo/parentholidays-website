@@ -1,0 +1,6 @@
+{
+  "name": "ParentHolidays Trending Packages Ticker",
+  "description": "Pixel-perfect trending holiday packages ticker for ParentHolidays.com.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

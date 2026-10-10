@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@keyframes ticker-marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker-marquee {
+  animation: ticker-marquee 48s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ticker-marquee {
+    animation-duration: 120s;
+  }
+}
