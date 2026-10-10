@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import {
   MapPin,
   Clock,
@@ -14,6 +14,8 @@ import {
   ArrowRight,
   Search,
   SlidersHorizontal,
+  ChevronDown,
+  ChevronUp,
   Hotel,
   Share2,
   Calendar,
@@ -21,7 +23,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 
-// Import all 16 generated authentic destination images
+// Import all generated authentic destination images
 import kashmirImg from '../assets/images/kashmir_india_travel_1791626404208.jpg';
 import keralaImg from '../assets/images/kerala_india_travel_1791626393188.jpg';
 import baliImg from '../assets/images/bali_indonesia_travel_1791634540116.jpg'; // fallback or bali
@@ -39,6 +41,10 @@ import goaImg from '../assets/images/goa_beach_travel_1791634540116.jpg';
 import ootyImg from '../assets/images/ooty_hills_travel_1791634554822.jpg';
 import vietnamImg from '../assets/images/vietnam_travel_1791634765157.jpg';
 import andamanImg from '../assets/images/andaman_islands_travel_1791634794278.jpg';
+import bannerLakeComoImg from '../assets/images/banner_lake_como_1791632620160.jpg';
+import bannerLakeBledImg from '../assets/images/banner_lake_bled_1791632631656.jpg';
+import bannerLakeTerraceImg from '../assets/images/banner_lake_terrace_1791632643375.jpg';
+import bannerSantoriniImg from '../assets/images/banner_santorini_sunset_1791632654824.jpg';
 
 export interface HolidayPackage {
   id: string;
@@ -62,45 +68,6 @@ export interface HolidayPackage {
 }
 
 export const HOLIDAY_PACKAGES: HolidayPackage[] = [
-  {
-    id: 'kashmir-paradise',
-    title: 'Kashmir Paradise & Dal Lake Shikara Retreat',
-    destination: 'Srinagar, Gulmarg & Pahalgam',
-    country: 'India',
-    category: 'scenic',
-    image: kashmirImg,
-    durationNights: 5,
-    durationDays: 6,
-    rating: 4.95,
-    reviewCount: 182,
-    originalPrice: 38999,
-    discountedPrice: 32999,
-    currency: '₹',
-    seniorBadge: 'Gentle Pace',
-    overview:
-      'Immerse in the breathtaking Kashmir valley at an unhurried, comfortable pace. Stay in heated luxury houseboats with electric blankets, enjoy private shikara rides with comfortable cushions, and visit Mughal gardens with wheelchair-friendly walkways.',
-    inclusions: [
-      '5 Nights in 4-Star Heated Hotels & Houseboat',
-      'Daily Buffet Breakfast & Homestyle Dinners',
-      'Private Shikara Ride on Calm Dal Lake',
-      'Dedicated Senior Care Tour Manager & Doctor on Call',
-      'Private AC Tempo Traveller with Wide Step Boarding',
-    ],
-    seniorHighlights: [
-      'Zero rushed early mornings: departures after 9:30 AM',
-      'Heated rooms with electric mattress warmers',
-      'Wheelchair and porter assistance at all gardens',
-      'Customised mild, non-spicy meals with Jain options',
-    ],
-    itinerary: [
-      { day: 1, title: 'Arrival in Srinagar & Relaxed Houseboat Check-in', desc: 'Welcome garland greeting at airport, comfortable private transfer to Nigeen Lake luxury houseboat, peaceful sunset tea on the deck.' },
-      { day: 2, title: 'Mughal Gardens & Shikara Ride', desc: 'Leisurely visit to Shalimar and Nishat Bagh with paved accessible walkways, followed by a gentle 2-hour shikara ride with Kashmiri Kahwa.' },
-      { day: 3, title: 'Scenic Day Excursion to Gulmarg Meadow', desc: 'Scenic drive to Gulmarg with scenic stops, gentle phase-1 gondola cable car ride with priority queue assistance.' },
-      { day: 4, title: 'Pahalgam Valley & Betaab Gentle Stroll', desc: 'Drive through saffron fields to Pahalgam valley, visit gentle pine trails and riverside gardens at your own pace.' },
-      { day: 5, title: 'Srinagar Heritage & Local Handicrafts', desc: 'Visit centuries-old Jamia Masjid and artisan carpet-weaving centers with seated demonstrations and shopping assistance.' },
-      { day: 6, title: 'Fond Farewells & Airport Drop', desc: 'Relaxed breakfast on houseboat terrace, luggage assistance, and airport transfer with wheelchair escort.' },
-    ],
-  },
   {
     id: 'serene-kerala',
     title: 'Serene Kerala Backwaters & Ayurveda Wellness',
@@ -142,43 +109,43 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
   },
   {
-    id: 'enchanting-bali',
-    title: 'Enchanting Bali Temples & Coastal Serenity',
-    destination: 'Ubud, Nusa Dua & Tanah Lot',
-    country: 'Indonesia',
-    category: 'international',
-    image: baliMainImg,
+    id: 'himachal-serenity',
+    title: 'Himachal Serenity: Shimla & Manali Valleys',
+    destination: 'Shimla, Kullu & Manali',
+    country: 'India',
+    category: 'scenic',
+    image: himachalImg,
     durationNights: 6,
     durationDays: 7,
-    rating: 4.91,
-    reviewCount: 164,
-    originalPrice: 52999,
-    discountedPrice: 44999,
+    rating: 4.89,
+    reviewCount: 176,
+    originalPrice: 32000,
+    discountedPrice: 26999,
     currency: '₹',
-    seniorBadge: 'International Comfort',
+    seniorBadge: 'Scenic Mountain',
     overview:
-      'Experience the magic of Bali without the hectic pace. Stay in 5-star barrier-free resorts in Nusa Dua, witness the iconic Ulun Danu lake temple with stunning volcanic backdrops, and enjoy serene cultural performances with reserved front-row seating.',
+      'Breathe in the rejuvenating mountain air of the Himalayas. Walk the historic vehicle-free Shimla Mall Road with convenient golf cart access, take a gentle cable car ride in Solang Valley, and stay in cozy valley-view hotels with heaters.',
     inclusions: [
-      '6 Nights at 5-Star Beachfront & Rainforest Resorts',
-      'Daily International Buffet Breakfast & 4 Curated Dinners',
-      'VIP Seated Entry to Kecak Dance & Cultural Shows',
-      'Private Chauffeur-Driven Air-Conditioned Van Throughout',
-      'Complimentary Indonesian SIM Card & 24/7 Concierge',
+      '6 Nights in Premium Valley-View Heated Mountain Hotels',
+      'All Breakfasts & Warm Multi-Cuisine Dinners',
+      'Mall Road Lift Tickets & Golf Cart Passes Included',
+      'Dedicated AC Vehicle with Hill-Experienced Chauffeur',
+      'Complimentary Hot Kashmiri Kahwa & Tea on Drives',
     ],
     seniorHighlights: [
-      'Elevator and ramp access across all visited landmarks',
-      'Indian vegetarian and international dining options daily',
-      'Private vehicle stays with you for flexible rest breaks',
-      'Slow-paced cultural encounters avoiding steep stairs',
+      'Heated rooms with hot water 24/7 and electric blankets',
+      'Slow, gentle driving pace on mountain roads to prevent nausea',
+      'Golf cart access across Mall Road and Ridge',
+      'No strenuous treks; focus on scenic benches and viewpoints',
     ],
     itinerary: [
-      { day: 1, title: 'Welcome to Denpasar Bali & Nusa Dua Resort', desc: 'Traditional flower garland welcome at Ngurah Rai Airport, direct transfer to luxury beachfront resort with private beach promenade.' },
-      { day: 2, title: 'Ubud Cultural Village & Artisan Boutiques', desc: 'Scenic morning drive to Ubud, visit Puri Saren Royal Palace with paved courtyards, relaxing afternoon tea.' },
-      { day: 3, title: 'Lake Beratan Ulun Danu Floating Temple', desc: 'Visit the peaceful lakeside temple surrounded by cool mountain breezes and manicured flower gardens.' },
-      { day: 4, title: 'Coffee Plantation Tasting & Balinese Spa', desc: 'Gentle plantation walk tasting herbal teas, followed by a soothing 90-minute Balinese massage tailored for seniors.' },
-      { day: 5, title: 'Tanah Lot Sunset & Ocean View Dinner', desc: 'Afternoon excursion to Tanah Lot coastal temple with accessible viewing pavilions, sunset dinner overlooking Indian Ocean.' },
-      { day: 6, title: 'Leisure Day at Nusa Dua Beach Club', desc: 'Relax by the swimming pool or stroll along flat paved beachfront boulevard with shaded lounge chairs.' },
-      { day: 7, title: 'Departure Flight Back Home', desc: 'Enjoy buffet breakfast, hotel check-out, and airport transfer with baggage assistance.' },
+      { day: 1, title: 'Chandigarh to Shimla Hills', desc: 'Pick up from Chandigarh airport/station, scenic drive via Himalayan expressway, check-in to valley-view Shimla hotel.' },
+      { day: 2, title: 'Shimla Mall Road, Ridge & Viceregal Lodge', desc: 'Use municipal lift and golf cart to reach the flat Ridge, leisurely visit to historic British Viceregal Lodge gardens.' },
+      { day: 3, title: 'Scenic Valley Drive to Manali via Kullu', desc: 'Comfortable day drive along Beas River, stop at famous Kullu shawl weaving center with hot tea.' },
+      { day: 4, title: 'Solang Valley Cable Car & Hadimba Pines', desc: 'Gentle enclosed cable car ride to Solang peak for snow mountain vistas, visit ancient wooden Hadimba temple in flat cedar woods.' },
+      { day: 5, title: 'Atal Tunnel Drive to Sissu Valley', desc: 'Drive through engineering marvel Atal Tunnel to sunny Lahaul Valley, see Sissu waterfall with zero climbing.' },
+      { day: 6, title: 'Vashisht Hot Springs & Old Manali Cafes', desc: 'Visit natural sulfur springs, peaceful afternoon in orchard gardens tasting fresh Himachal apples.' },
+      { day: 7, title: 'Return Drive to Chandigarh & Departure', desc: 'Leisurely descent to Chandigarh with comfortable lunch break, drop at airport/railway station.' },
     ],
   },
   {
@@ -219,6 +186,123 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
       { day: 5, title: 'Drive to Romantic Udaipur & Lake Pichola', desc: 'En route visit Ranakpur Jain Temple with 1444 intricately carved pillars, check-in to lakeside Udaipur palace.' },
       { day: 6, title: 'Udaipur City Palace & Sunset Boat Cruise', desc: 'Leisurely morning visit to Saheliyon Ki Bari fountains, followed by a tranquil evening boat ride on Lake Pichola.' },
       { day: 7, title: 'Departure from Udaipur Airport', desc: 'Breakfast, souvenir shopping assistance for textiles and handicrafts, airport drop.' },
+    ],
+  },
+  {
+    id: 'sunny-goa',
+    title: 'Sunny Goa: Gentle Sands & Portuguese Heritage',
+    destination: 'South Goa & Panaji',
+    country: 'India',
+    category: 'beach',
+    image: goaImg,
+    durationNights: 4,
+    durationDays: 5,
+    rating: 4.88,
+    reviewCount: 198,
+    originalPrice: 27000,
+    discountedPrice: 22500,
+    currency: '₹',
+    seniorBadge: 'Coastal Calm',
+    overview:
+      'Relax on the quiet, uncrowded white sand beaches of South Goa. Experience Portuguese colonial architecture in Fontainhas, admire historic basilicas, and sail on a peaceful sunset cruise along the Mandovi River with Goan folk dances.',
+    inclusions: [
+      '4 Nights in 5-Star South Goa Beachfront Resort with Private Lawns',
+      'All Buffet Breakfasts & Gourmet Coastal/North Indian Dinners',
+      'Mandovi River Sunset Luxury Cruise with Live Music',
+      'Guided Tour of Old Goa Churches with Seated Historical Walk',
+      'Private AC Vehicle with Dedicated Senior Chauffeur',
+    ],
+    seniorHighlights: [
+      'Quiet South Goa location away from loud night clubs and crowds',
+      'Resort features flat green lawns leading directly to calm shore',
+      'Elevators and ground-level suites with walk-in showers',
+      'Complimentary doctor consultation available on resort premises',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrive in Goa & Beachfront Resort Check-in', desc: 'Warm coconut water welcome at Mopa/Dabolim Airport, transfer to South Goa resort, afternoon rest by the shaded cabana.' },
+      { day: 2, title: 'Old Goa Heritage Churches & Fontainhas Latin Quarter', desc: 'Visit Basilica of Bom Jesus and Se Cathedral, gentle walk through colorful Portuguese houses of Fontainhas with pastry tasting.' },
+      { day: 3, title: 'Spice Village Traditional Lunch & River Cruise', desc: 'Visit lush Sahakari spice plantation with seated elephant greeting and traditional Goan lunch served on banana leaves, evening Mandovi sunset cruise.' },
+      { day: 4, title: 'Leisure Day on Private Beach & Sunset Cocktail', desc: 'Complete day at leisure to walk soft sands, read on breezy lawns, or indulge in a soothing foot reflexology session.' },
+      { day: 5, title: 'Farewell Goa & Airport Drop', desc: 'Leisurely breakfast, purchase authentic Goan cashew and feni souvenirs, airport transfer.' },
+    ],
+  },
+  {
+    id: 'kashmir-paradise',
+    title: 'Kashmir Paradise & Dal Lake Shikara Retreat',
+    destination: 'Srinagar, Gulmarg & Pahalgam',
+    country: 'India',
+    category: 'scenic',
+    image: kashmirImg,
+    durationNights: 5,
+    durationDays: 6,
+    rating: 4.95,
+    reviewCount: 182,
+    originalPrice: 38999,
+    discountedPrice: 32999,
+    currency: '₹',
+    seniorBadge: 'Gentle Pace',
+    overview:
+      'Immerse in the breathtaking Kashmir valley at an unhurried, comfortable pace. Stay in heated luxury houseboats with electric blankets, enjoy private shikara rides with comfortable cushions, and visit Mughal gardens with wheelchair-friendly walkways.',
+    inclusions: [
+      '5 Nights in 4-Star Heated Hotels & Houseboat',
+      'Daily Buffet Breakfast & Homestyle Dinners',
+      'Private Shikara Ride on Calm Dal Lake',
+      'Dedicated Senior Care Tour Manager & Doctor on Call',
+      'Private AC Tempo Traveller with Wide Step Boarding',
+    ],
+    seniorHighlights: [
+      'Zero rushed early mornings: departures after 9:30 AM',
+      'Heated rooms with electric mattress warmers',
+      'Wheelchair and porter assistance at all gardens',
+      'Customised mild, non-spicy meals with Jain options',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival in Srinagar & Relaxed Houseboat Check-in', desc: 'Welcome garland greeting at airport, comfortable private transfer to Nigeen Lake luxury houseboat, peaceful sunset tea on the deck.' },
+      { day: 2, title: 'Mughal Gardens & Shikara Ride', desc: 'Leisurely visit to Shalimar and Nishat Bagh with paved accessible walkways, followed by a gentle 2-hour shikara ride with Kashmiri Kahwa.' },
+      { day: 3, title: 'Scenic Day Excursion to Gulmarg Meadow', desc: 'Scenic drive to Gulmarg with scenic stops, gentle phase-1 gondola cable car ride with priority queue assistance.' },
+      { day: 4, title: 'Pahalgam Valley & Betaab Gentle Stroll', desc: 'Drive through saffron fields to Pahalgam valley, visit gentle pine trails and riverside gardens at your own pace.' },
+      { day: 5, title: 'Srinagar Heritage & Local Handicrafts', desc: 'Visit centuries-old Jamia Masjid and artisan carpet-weaving centers with seated demonstrations and shopping assistance.' },
+      { day: 6, title: 'Fond Farewells & Airport Drop', desc: 'Relaxed breakfast on houseboat terrace, luggage assistance, and airport transfer with wheelchair escort.' },
+    ],
+  },
+  {
+    id: 'enchanting-bali',
+    title: 'Enchanting Bali Temples & Coastal Serenity',
+    destination: 'Ubud, Nusa Dua & Tanah Lot',
+    country: 'Indonesia',
+    category: 'international',
+    image: baliMainImg,
+    durationNights: 6,
+    durationDays: 7,
+    rating: 4.91,
+    reviewCount: 164,
+    originalPrice: 52999,
+    discountedPrice: 44999,
+    currency: '₹',
+    seniorBadge: 'International Comfort',
+    overview:
+      'Experience the magic of Bali without the hectic pace. Stay in 5-star barrier-free resorts in Nusa Dua, witness the iconic Ulun Danu lake temple with stunning volcanic backdrops, and enjoy serene cultural performances with reserved front-row seating.',
+    inclusions: [
+      '6 Nights at 5-Star Beachfront & Rainforest Resorts',
+      'Daily International Buffet Breakfast & 4 Curated Dinners',
+      'VIP Seated Entry to Kecak Dance & Cultural Shows',
+      'Private Chauffeur-Driven Air-Conditioned Van Throughout',
+      'Complimentary Indonesian SIM Card & 24/7 Concierge',
+    ],
+    seniorHighlights: [
+      'Elevator and ramp access across all visited landmarks',
+      'Indian vegetarian and international dining options daily',
+      'Private vehicle stays with you for flexible rest breaks',
+      'Slow-paced cultural encounters avoiding steep stairs',
+    ],
+    itinerary: [
+      { day: 1, title: 'Welcome to Denpasar Bali & Nusa Dua Resort', desc: 'Traditional flower garland welcome at Ngurah Rai Airport, direct transfer to luxury beachfront resort with private beach promenade.' },
+      { day: 2, title: 'Ubud Cultural Village & Artisan Boutiques', desc: 'Scenic morning drive to Ubud, visit Puri Saren Royal Palace with paved courtyards, relaxing afternoon tea.' },
+      { day: 3, title: 'Lake Beratan Ulun Danu Floating Temple', desc: 'Visit the peaceful lakeside temple surrounded by cool mountain breezes and manicured flower gardens.' },
+      { day: 4, title: 'Coffee Plantation Tasting & Balinese Spa', desc: 'Gentle plantation walk tasting herbal teas, followed by a soothing 90-minute Balinese massage tailored for seniors.' },
+      { day: 5, title: 'Tanah Lot Sunset & Ocean View Dinner', desc: 'Afternoon excursion to Tanah Lot coastal temple with accessible viewing pavilions, sunset dinner overlooking Indian Ocean.' },
+      { day: 6, title: 'Leisure Day at Nusa Dua Beach Club', desc: 'Relax by the swimming pool or stroll along flat paved beachfront boulevard with shaded lounge chairs.' },
+      { day: 7, title: 'Departure Flight Back Home', desc: 'Enjoy buffet breakfast, hotel check-out, and airport transfer with baggage assistance.' },
     ],
   },
   {
@@ -337,46 +421,6 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
       { day: 4, title: 'Phuket Scenic Viewpoint & Old Town Walk', desc: 'Drive to Promthep Cape for gentle ocean views, stroll through Sino-Portuguese heritage street with cafe stops.' },
       { day: 5, title: 'Calm Island Catamaran Excursion', desc: 'Smooth, stable catamaran cruise to Coral Island with shaded loungers and calm, waist-deep turquoise swimming.' },
       { day: 6, title: 'Farewell Thailand & Airport Transfer', desc: 'Buffet breakfast, tropical fruit tasting, and direct transfer to Phuket International Airport.' },
-    ],
-  },
-  {
-    id: 'himachal-serenity',
-    title: 'Himachal Serenity: Shimla & Manali Valleys',
-    destination: 'Shimla, Kullu & Manali',
-    country: 'India',
-    category: 'scenic',
-    image: himachalImg,
-    durationNights: 6,
-    durationDays: 7,
-    rating: 4.89,
-    reviewCount: 176,
-    originalPrice: 32000,
-    discountedPrice: 26999,
-    currency: '₹',
-    seniorBadge: 'Scenic Mountain',
-    overview:
-      'Breathe in the rejuvenating mountain air of the Himalayas. Walk the historic vehicle-free Shimla Mall Road with convenient golf cart access, take a gentle cable car ride in Solang Valley, and stay in cozy valley-view hotels with heaters.',
-    inclusions: [
-      '6 Nights in Premium Valley-View Heated Mountain Hotels',
-      'All Breakfasts & Warm Multi-Cuisine Dinners',
-      'Mall Road Lift Tickets & Golf Cart Passes Included',
-      'Dedicated AC Vehicle with Hill-Experienced Chauffeur',
-      'Complimentary Hot Kashmiri Kahwa & Tea on Drives',
-    ],
-    seniorHighlights: [
-      'Heated rooms with hot water 24/7 and electric blankets',
-      'Slow, gentle driving pace on mountain roads to prevent nausea',
-      'Golf cart access across Mall Road and Ridge',
-      'No strenuous treks; focus on scenic benches and viewpoints',
-    ],
-    itinerary: [
-      { day: 1, title: 'Chandigarh to Shimla Hills', desc: 'Pick up from Chandigarh airport/station, scenic drive via Himalayan expressway, check-in to valley-view Shimla hotel.' },
-      { day: 2, title: 'Shimla Mall Road, Ridge & Viceregal Lodge', desc: 'Use municipal lift and golf cart to reach the flat Ridge, leisurely visit to historic British Viceregal Lodge gardens.' },
-      { day: 3, title: 'Scenic Valley Drive to Manali via Kullu', desc: 'Comfortable day drive along Beas River, stop at famous Kullu shawl weaving center with hot tea.' },
-      { day: 4, title: 'Solang Valley Cable Car & Hadimba Pines', desc: 'Gentle enclosed cable car ride to Solang peak for snow mountain vistas, visit ancient wooden Hadimba temple in flat cedar woods.' },
-      { day: 5, title: 'Atal Tunnel Drive to Sissu Valley', desc: 'Drive through engineering marvel Atal Tunnel to sunny Lahaul Valley, see Sissu waterfall with zero climbing.' },
-      { day: 6, title: 'Vashisht Hot Springs & Old Manali Cafes', desc: 'Visit natural sulfur springs, peaceful afternoon in orchard gardens tasting fresh Himachal apples.' },
-      { day: 7, title: 'Return Drive to Chandigarh & Departure', desc: 'Leisurely descent to Chandigarh with comfortable lunch break, drop at airport/railway station.' },
     ],
   },
   {
@@ -537,44 +581,6 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
     ],
   },
   {
-    id: 'sunny-goa',
-    title: 'Sunny Goa: Gentle Sands & Portuguese Heritage',
-    destination: 'South Goa & Panaji',
-    country: 'India',
-    category: 'beach',
-    image: goaImg,
-    durationNights: 4,
-    durationDays: 5,
-    rating: 4.88,
-    reviewCount: 198,
-    originalPrice: 27000,
-    discountedPrice: 22500,
-    currency: '₹',
-    seniorBadge: 'Coastal Calm',
-    overview:
-      'Relax on the quiet, uncrowded white sand beaches of South Goa. Experience Portuguese colonial architecture in Fontainhas, admire historic basilicas, and sail on a peaceful sunset cruise along the Mandovi River with Goan folk dances.',
-    inclusions: [
-      '4 Nights in 5-Star South Goa Beachfront Resort with Private Lawns',
-      'All Buffet Breakfasts & Gourmet Coastal/North Indian Dinners',
-      'Mandovi River Sunset Luxury Cruise with Live Music',
-      'Guided Tour of Old Goa Churches with Seated Historical Walk',
-      'Private AC Vehicle with Dedicated Senior Chauffeur',
-    ],
-    seniorHighlights: [
-      'Quiet South Goa location away from loud night clubs and crowds',
-      'Resort features flat green lawns leading directly to calm shore',
-      'Elevators and ground-level suites with walk-in showers',
-      'Complimentary doctor consultation available on resort premises',
-    ],
-    itinerary: [
-      { day: 1, title: 'Arrive in Goa & Beachfront Resort Check-in', desc: 'Warm coconut water welcome at Mopa/Dabolim Airport, transfer to South Goa resort, afternoon rest by the shaded cabana.' },
-      { day: 2, title: 'Old Goa Heritage Churches & Fontainhas Latin Quarter', desc: 'Visit Basilica of Bom Jesus and Se Cathedral, gentle walk through colorful Portuguese houses of Fontainhas with pastry tasting.' },
-      { day: 3, title: 'Spice Village Traditional Lunch & River Cruise', desc: 'Visit lush Sahakari spice plantation with seated elephant greeting and traditional Goan lunch served on banana leaves, evening Mandovi sunset cruise.' },
-      { day: 4, title: 'Leisure Day on Private Beach & Sunset Cocktail', desc: 'Complete day at leisure to walk soft sands, read on breezy lawns, or indulge in a soothing foot reflexology session.' },
-      { day: 5, title: 'Farewell Goa & Airport Drop', desc: 'Leisurely breakfast, purchase authentic Goan cashew and feni souvenirs, airport transfer.' },
-    ],
-  },
-  {
     id: 'ooty-hills',
     title: 'Ooty & Coonoor: Queen of Nilgiri Hills',
     destination: 'Ooty, Coonoor & Pykara',
@@ -691,6 +697,629 @@ export const HOLIDAY_PACKAGES: HolidayPackage[] = [
       { day: 6, title: 'Departure from Port Blair with Shell Souvenirs', desc: 'Breakfast, visit Sagarika government handicraft emporium, transfer to Veer Savarkar Airport.' },
     ],
   },
+  {
+    id: 'ladakh-explorer',
+    title: 'Ladakh Explorer & Pangong Lake Serenade',
+    destination: 'Leh, Nubra Valley & Pangong',
+    country: 'India',
+    category: 'scenic',
+    image: bannerLakeBledImg,
+    durationNights: 6,
+    durationDays: 7,
+    rating: 4.90,
+    reviewCount: 84,
+    originalPrice: 46000,
+    discountedPrice: 39500,
+    currency: '₹',
+    seniorBadge: 'Acclimatized Pace',
+    overview:
+      'A carefully paced senior-friendly Himalayan discovery of Ladakh with mandatory 48-hour acclimatization in luxury heated Leh hotels, portable oxygen cylinders, and scenic valley drives. (Sample package data)',
+    inclusions: [
+      '6 Nights in Premium Heated Deluxe Hotels & Luxury Swiss Camps',
+      'All Meals: Wholesome Mild Buffet with Garlic Soup for Altitude Comfort',
+      'Dedicated Oxygen Concentrator & Certified Medical Escort Throughout',
+      'Private Heated 4x4 Luxury Coach with Wide Step Boarding',
+      'Inner Line Permits & Monastery Entry Passes Included',
+    ],
+    seniorHighlights: [
+      'Gradual acclimatization with zero travel on Days 1 and 2',
+      'Continuous doctor-on-call and pulse oximeter monitoring',
+      'Level-access view of Pangong Lake with heated lounge tents',
+      'Electric blankets and hot water bottles provided every night',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival in Leh & Complete Rest for Acclimatization', desc: 'Warm reception at Kushok Bakula Rimpochee Airport, transfer to heated hotel, complete bed rest with oxygen monitoring.' },
+      { day: 2, title: 'Gentle Walk in Leh Market & Shanti Stupa View', desc: 'Late morning leisure, short flat stroll in Leh town market, gentle vehicle ascent to Shanti Stupa sunset viewpoint.' },
+      { day: 3, title: 'Shey Palace & Thiksey Monastery Courtyard', desc: 'Visit majestic Thiksey Monastery with ramp access to main prayer hall, see Shey Palace with Indus valley views.' },
+      { day: 4, title: 'Scenic Drive to Nubra Valley via Khardung La', desc: 'Cross high pass with medical standby, descend into warm valley, stay in luxury organic farm camp.' },
+      { day: 5, title: 'Hunder Sand Dunes & Two-Humped Camel View', desc: 'Gentle morning among white sand dunes, watch Bactrian double-humped camels with seated photo stops.' },
+      { day: 6, title: 'Turquoise Pangong Tso Lake Day Excursion', desc: 'Drive to world-famous Pangong Lake, relax in heated dining tent overlooking shimmering blue waters.' },
+      { day: 7, title: 'Leh Airport Departure with Ladakhi Scarf', desc: 'Traditional Khatag blessing farewell, luggage assistance, and airport transfer.' },
+    ],
+  },
+  {
+    id: 'rishikesh-haridwar-spiritual',
+    title: 'Rishikesh & Haridwar Sacred Riverfront Retreat',
+    destination: 'Haridwar & Rishikesh',
+    country: 'India',
+    category: 'spiritual',
+    image: varanasiImg,
+    durationNights: 4,
+    durationDays: 5,
+    rating: 4.94,
+    reviewCount: 128,
+    originalPrice: 24500,
+    discountedPrice: 19999,
+    currency: '₹',
+    seniorBadge: 'Reserved Ganga Darshan',
+    overview:
+      'Experience spiritual bliss at Har Ki Pauri with reserved VIP seating for the evening Maha Aarti, gentle yoga & meditation by the holy Ganga, and barrier-free temple visits. (Sample package data)',
+    inclusions: [
+      '4 Nights in 5-Star Riverbank Wellness Resort with Private Ghat Access',
+      'All Satvik Vegetarian Meals Prepared Fresh with Ayurvedic Principles',
+      'Reserved Cushioned Seating for Har Ki Pauri Evening Ganga Aarti',
+      'E-Rickshaw and Golf Cart Transfers across Ghat Walkways',
+      'Senior Travel Coordinator & Doctor on Standby',
+    ],
+    seniorHighlights: [
+      'Direct elevator access from resort to private tranquil Ganga ghat',
+      'No crowded stampedes: VIP special enclosure at Har Ki Pauri',
+      'Gentle chair yoga and pranayama suitable for senior mobility',
+      'Warm foot reflexology and herbal tea sessions daily',
+    ],
+    itinerary: [
+      { day: 1, title: 'Welcome to Haridwar & Har Ki Pauri VIP Aarti', desc: 'Arrival pick-up from Dehradun airport / Haridwar station, check-in to riverfront resort, evening reserved VIP Aarti.' },
+      { day: 2, title: 'Mansa Devi Ropeway & Heritage Ashrams', desc: 'Gentle enclosed cable car ride to Mansa Devi temple with priority line, visit historic Shantikunj spiritual ashram.' },
+      { day: 3, title: 'Scenic Drive to Rishikesh & Beatles Ashram Stroll', desc: 'Comfortable transfer to Rishikesh, visit quiet paved trails of Beatles Ashram and Triveni Ghat.' },
+      { day: 4, title: 'Parmarth Niketan Ganga Aarti & Chair Yoga', desc: 'Morning chair yoga session overlooking flowing Ganga, evening tranquil Parmarth Niketan sunset Aarti.' },
+      { day: 5, title: 'Morning Sacred Meditation & Departure', desc: 'Gentle morning prayer session, sacred Gangajal souvenir gift, drop at Dehradun Airport / Railway Station.' },
+    ],
+  },
+  {
+    id: 'amritsar-golden-heritage',
+    title: 'Amritsar Golden Temple & Punjab Heritage Tour',
+    destination: 'Amritsar',
+    country: 'India',
+    category: 'spiritual',
+    image: rajasthanImg,
+    durationNights: 3,
+    durationDays: 4,
+    rating: 4.95,
+    reviewCount: 172,
+    originalPrice: 21000,
+    discountedPrice: 16999,
+    currency: '₹',
+    seniorBadge: 'VIP Golden Darshan',
+    overview:
+      'A heartwarming cultural and spiritual pilgrimage to Harmandir Sahib. Enjoy electric golf cart access, wheelchair assistance on the parikrama marble, and reserved senior seating for Wagah Border ceremony. (Sample package data)',
+    inclusions: [
+      '3 Nights in 5-Star Luxury Hotel near Golden Temple with Elevator',
+      'All Pure Vegetarian Buffet Meals & Authentic Punjabi Delicacies',
+      'Electric Golf Cart Access & Assisted VIP Darshan at Golden Temple',
+      'Special Pass Reserved Seating for Wagah Border Beating Retreat',
+      'Private AC Vehicle & Professional Senior Companion',
+    ],
+    seniorHighlights: [
+      'Wheelchair and golf cart available for Parikrama navigation',
+      'Reserved shaded seating at Wagah Border avoiding steep stadium steps',
+      'Zero rush: Early morning and evening tranquil Darshan slots',
+      'Authentic Amritsari kulcha and mild satvik dining options',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival in Amritsar & Evening Illuminated Golden Temple', desc: 'Warm reception at Sri Guru Ram Dass Jee Airport, check-in to 5-star hotel, peaceful evening visit to glowing Golden Temple.' },
+      { day: 2, title: 'Morning Sacred Darshan & Jallianwala Bagh Memorial', desc: 'Priority assisted Darshan at Harmandir Sahib, visit adjacent flat memorial park of Jallianwala Bagh.' },
+      { day: 3, title: 'Partition Museum & Wagah Border Flag Ceremony', desc: 'Visit barrier-free Partition Museum in Town Hall, afternoon drive with VIP reserved seating at Wagah Border ceremony.' },
+      { day: 4, title: 'Heritage Bazaar Shopping & Departure Drop', desc: 'Assisted shopping for traditional Phulkari dupattas and Punjabi juttis, airport transfer.' },
+    ],
+  },
+  {
+    id: 'meghalaya-shillong-clouds',
+    title: 'Meghalaya & Shillong: Abode of the Clouds',
+    destination: 'Shillong, Cherrapunji & Dawki',
+    country: 'India',
+    category: 'scenic',
+    image: bannerLakeTerraceImg,
+    durationNights: 5,
+    durationDays: 6,
+    rating: 4.91,
+    reviewCount: 96,
+    originalPrice: 36000,
+    discountedPrice: 29999,
+    currency: '₹',
+    seniorBadge: 'Gentle Nature Walk',
+    overview:
+      'Discover the Scotland of the East. Gaze upon crystalline waters of Dawki river, majestic Nohkalikai waterfalls from level viewing galleries, and tranquil pine forests in Shillong with zero arduous hiking. (Sample package data)',
+    inclusions: [
+      '5 Nights in Premium Pine-View Resorts with Room Heating',
+      'All Meals: North Indian, South Indian & Mild Khasi Specials',
+      'Private Shaded Boat Ride on Crystal-Clear Umngot River Dawki',
+      'Private AC Tempo Traveller with Senior-Adapted Easy Boarding',
+      'Experienced English & Hindi-Speaking Tour Guide',
+    ],
+    seniorHighlights: [
+      'Viewpoints accessible by vehicle avoiding long stairs',
+      'Paved boardwalks at Umiam Lake and Ward’s Lake gardens',
+      'Moderate mountain driving pace with frequent refreshment stops',
+      'Heated rooms with electric kettles and familiar Indian tea',
+    ],
+    itinerary: [
+      { day: 1, title: 'Guwahati Airport to Misty Shillong Hills', desc: 'Warm pickup at Guwahati, stop at scenic Umiam Lake for tea, check-in to pine-view resort in Shillong.' },
+      { day: 2, title: 'Shillong Heritage: Ward’s Lake & Don Bosco Museum', desc: 'Flat paved stroll around flower-lined Ward’s Lake, visit elevator-equipped Don Bosco Indigenous Cultures Museum.' },
+      { day: 3, title: 'Day Excursion to Cherrapunji Waterfalls', desc: 'Scenic drive to Cherrapunji, view Nohkalikai and Seven Sisters Falls from drive-up wheelchair galleries.' },
+      { day: 4, title: 'Dawki Crystal Waters & Cleanest Village Mawlynnong', desc: 'Calm shaded wooden boat ride on transparent Umngot River, visit spotless paved walkways of Mawlynnong.' },
+      { day: 5, title: 'Laitlum Canyons Viewpoint & Police Bazar Stroll', desc: 'Drive directly to breathtaking panoramic canyon rim, evening tea and souvenir shopping in Shillong.' },
+      { day: 6, title: 'Return Drive to Guwahati & Airport Drop', desc: 'Leisurely descent down expressway, Kamakhya Temple darshan option, drop at Guwahati Airport.' },
+    ],
+  },
+  {
+    id: 'arunachal-tawang-discovery',
+    title: 'Arunachal Tawang Monastery & Peaceful Valleys',
+    destination: 'Tezpur, Dirang & Tawang',
+    country: 'India',
+    category: 'scenic',
+    image: himachalImg,
+    durationNights: 6,
+    durationDays: 7,
+    rating: 4.88,
+    reviewCount: 78,
+    originalPrice: 42500,
+    discountedPrice: 35800,
+    currency: '₹',
+    seniorBadge: 'Serene Monastery Tour',
+    overview:
+      'A serene Himalayan spiritual escape across lush valleys and ancient Buddhist monasteries. Explore India’s largest monastery at Tawang with vehicle drop at the sanctum and leisurely garden stops. (Sample package data)',
+    inclusions: [
+      '6 Nights in Best-in-Class Heated Mountain Hotels',
+      'Wholesome Home-Style Vegetarian & Multi-Cuisine Dining',
+      'Inner Line Government Tourist Permits Included',
+      'Private Luxury SUV with Experienced Mountain Chauffeur',
+      'Assisted Sightseeing at Tawang & Dirang Monasteries',
+    ],
+    seniorHighlights: [
+      'Direct vehicle drop at Tawang Monastery entrance gates',
+      'Hot water bottles and heated deluxe rooms in every hotel',
+      'Slow-paced transit stopping at hot water springs and kiwi orchards',
+      'Oxygen canisters and first-aid kits in all tour vehicles',
+    ],
+    itinerary: [
+      { day: 1, title: 'Guwahati to Tezpur Valley on the Brahmaputra', desc: 'Pick up from Guwahati, smooth highway drive along Brahmaputra valley to historic Tezpur hotel.' },
+      { day: 2, title: 'Scenic Ascent to Dirang Valley Orchards', desc: 'Gentle mountain climb, stop at Tipi Orchid Research Centre with 500 orchid species, check-in to Dirang riverside resort.' },
+      { day: 3, title: 'Sela Pass Frozen Lake View & Arrival in Tawang', desc: 'Cross scenic Sela Pass with view of sacred lake from warm vehicle, arrive in holy town of Tawang.' },
+      { day: 4, title: 'Tawang Monastery & Urgelling Birthplace Stroll', desc: 'Guided visit to 400-year-old Tawang Monastery with vehicle drop at courtyard, visit 6th Dalai Lama birthplace.' },
+      { day: 5, title: 'Madhuri Lake Scenic Excursion & War Memorial', desc: 'Drive to picturesque Sangetsar Lake surrounded by snow mountains, attend evening seated Tawang War Memorial show.' },
+      { day: 6, title: 'Return Drive to Bomdila Apple Orchards', desc: 'Descent to Bomdila, visit Bomdila viewpoint and craft center with warm apple cider.' },
+      { day: 7, title: 'Drive to Guwahati & Return Flight Boarding', desc: 'Comfortable final descent to Guwahati Airport with heartfelt northeastern memories.' },
+    ],
+  },
+  {
+    id: 'kutch-white-rann',
+    title: 'Kutch & The White Rann: Moonlit Salt Desert',
+    destination: 'Bhuj, Dhordo & Mandvi',
+    country: 'India',
+    category: 'domestic',
+    image: rajasthanImg,
+    durationNights: 4,
+    durationDays: 5,
+    rating: 4.93,
+    reviewCount: 115,
+    originalPrice: 31500,
+    discountedPrice: 26500,
+    currency: '₹',
+    seniorBadge: 'Golf Cart Desert Ride',
+    overview:
+      'Marvel at the ethereal White Desert under the starry sky. Stay in luxury AC Swiss tents at the Tent City, ride golf carts into the white salt expanse, and enjoy private visits to artisan weaving villages. (Sample package data)',
+    inclusions: [
+      '4 Nights in Premium AC Tents at Rann Utsav & 4-Star Bhuj Hotel',
+      'Authentic Gujarati Thali & Multi-Cuisine Buffet Meals',
+      'Golf Cart Passes for Direct Access into White Desert Plateau',
+      'Palace Visits with Elevator & Seated Cultural Performances',
+      'Private AC Coach with Senior Assistance Guide',
+    ],
+    seniorHighlights: [
+      'Golf cart transfers eliminate walking on crunchy salt beds',
+      'Ramps and level pathways across the luxury tented city',
+      'Mild Gujarati and Jain vegetarian dining prepared fresh',
+      'Evenings with folk music and seated bonfires with warm blankets',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival in Bhuj & Prag Mahal Heritage Palace', desc: 'Pick up from Bhuj Airport / Railway Station, visit Prag Mahal and Aina Mahal with level walkways, hotel check-in.' },
+      { day: 2, title: 'Drive to Dhordo White Desert Tent City', desc: 'Transfer to luxury Rann Utsav tent city, welcome drum greeting, sunset golf cart ride to glowing white salt flats.' },
+      { day: 3, title: 'Artisan Villages Nirona & Full Moon Desert Viewing', desc: 'Visit Rogan art master craftspeople in Nirona village with seated demonstrations, moonlit desert evening.' },
+      { day: 4, title: 'Mandvi Vijay Vilas Palace & Private Beach', desc: 'Drive to coastal Mandvi, tour royal summer palace with private elevator and tranquil coastal gardens.' },
+      { day: 5, title: 'Kutch Handicraft Shopping & Departure Drop', desc: 'Assisted shopping for authentic Kutchi mirror embroidery, transfer to Bhuj Airport.' },
+    ],
+  },
+  {
+    id: 'hampi-heritage-escape',
+    title: 'Hampi UNESCO Heritage & Vijayanagara Splendour',
+    destination: 'Hampi, Hospet & Badami',
+    country: 'India',
+    category: 'domestic',
+    image: varanasiImg,
+    durationNights: 4,
+    durationDays: 5,
+    rating: 4.89,
+    reviewCount: 92,
+    originalPrice: 28000,
+    discountedPrice: 23500,
+    currency: '₹',
+    seniorBadge: 'Electric Cart Heritage Tour',
+    overview:
+      'Step back into the golden age of the Vijayanagara Empire. Explore the UNESCO Stone Chariot and Vittala Temple aboard electric buggies with certified senior-friendly archaeologists and lakeside resort stays. (Sample package data)',
+    inclusions: [
+      '4 Nights in 5-Star Heritage Palace Resort near Hampi',
+      'Daily Multi-Cuisine Breakfasts & Grand South/North Indian Dinners',
+      'Government Battery Buggy Transfers inside Vittala Temple Complex',
+      'Coracle Boat Ride on Calm Tungabhadra River with Life Vests',
+      'Private AC Vehicle & Knowledgeable Senior Historian',
+    ],
+    seniorHighlights: [
+      'Battery-operated golf buggies cover all long distances',
+      'Wheelchairs available at major monument reception areas',
+      'Unhurried sightseeing avoiding midday direct sunshine',
+      'Ground-floor heritage cottages with walk-in bathrooms',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival in Hospet & Heritage Palace Check-in', desc: 'Pickup from Jindal Vidyanagar Airport / Hospet Station, transfer to royal Vijayanagara style luxury palace resort.' },
+      { day: 2, title: 'Vittala Temple Stone Chariot & Musical Pillars', desc: 'Board electric carts to iconic Stone Chariot, explore carved musical pillared halls with shaded resting stops.' },
+      { day: 3, title: 'Virupaksha Temple & Tungabhadra Riverbank', desc: 'Visit ancient active Virupaksha Temple with paved flooring, enjoy peaceful seated view of sacred river boulders.' },
+      { day: 4, title: 'Royal Enclosure, Lotus Mahal & Elephant Stables', desc: 'Explore Queen’s Bath and graceful arched Elephant Stables surrounded by flat manicured green lawns.' },
+      { day: 5, title: 'Souvenir Craft Stalls & Departure Drop', desc: 'Leisurely breakfast, purchase carved soapstone artifacts, transfer to airport / railway station.' },
+    ],
+  },
+  {
+    id: 'coorg-coffee-trails',
+    title: 'Coorg Coffee Trails & Misty Western Ghats',
+    destination: 'Madikeri & Kushalnagar',
+    country: 'India',
+    category: 'scenic',
+    image: ootyImg,
+    durationNights: 4,
+    durationDays: 5,
+    rating: 4.92,
+    reviewCount: 138,
+    originalPrice: 27500,
+    discountedPrice: 22999,
+    currency: '₹',
+    seniorBadge: 'Plantation Peace',
+    overview:
+      'Relax among sprawling coffee, cardamom, and pepper estates in the gentle hills of Kodagu. Stay in barrier-free plantation bungalows, witness gentle elephants at Dubare, and visit the serene Golden Temple at Bylakuppe. (Sample package data)',
+    inclusions: [
+      '4 Nights in 5-Star Luxury Coffee Plantation Resort',
+      'All Meals: Wholesome Kodava, South Indian & North Indian Buffets',
+      'Private Guided Flat Plantation Walk with Fresh Coffee Brewing',
+      'Assisted Visit to Namdroling Monastery (Golden Temple)',
+      'Private AC Vehicle with Local Senior Guide',
+    ],
+    seniorHighlights: [
+      'Level, paved paths through private estate gardens',
+      'Pleasant year-round hill climate without extreme winter chill',
+      'Golden Temple features ramp access and serene prayer halls',
+      'Resort doctor available on premises 24/7',
+    ],
+    itinerary: [
+      { day: 1, title: 'Mysore / Mangalore to Misty Coorg Hills', desc: 'Pickup and comfortable drive through spice hills, check-in to private coffee estate resort, afternoon fresh brew tasting.' },
+      { day: 2, title: 'Namdroling Golden Temple & Tibetan Monastery', desc: 'Visit peaceful Bylakuppe monastery with giant golden Buddha statues and level paved walkways.' },
+      { day: 3, title: 'Dubare Gentle Elephant Camp & Kaveri Riverfront', desc: 'Witness gentle elephants being bathed along shallow riverbanks from shaded viewing pavilions.' },
+      { day: 4, title: 'Raja’s Seat Viewpoint & Abbey Falls Boardwalk', desc: 'Visit historic royal garden Raja’s Seat with manicured seasonal flowers, view cascading falls from paved bridge.' },
+      { day: 5, title: 'Estate Coffee Souvenirs & Airport Drop', desc: 'Breakfast, purchase fresh estate roasted coffee beans and organic honey, return airport transfer.' },
+    ],
+  },
+  {
+    id: 'pondicherry-french-retreat',
+    title: 'Pondicherry French Quarter & Auroville Serenity',
+    destination: 'Pondicherry & Auroville',
+    country: 'India',
+    category: 'beach',
+    image: goaImg,
+    durationNights: 4,
+    durationDays: 5,
+    rating: 4.87,
+    reviewCount: 104,
+    originalPrice: 25000,
+    discountedPrice: 20800,
+    currency: '₹',
+    seniorBadge: 'French Heritage Stroll',
+    overview:
+      'Stroll through the pastel bougainvillea streets of White Town, meditate by the tranquil Matrimandir gardens in Auroville, and enjoy sunset tea along the vehicle-free Promenade Beach. (Sample package data)',
+    inclusions: [
+      '4 Nights in French Colonial Heritage Boutique Hotel with Lift',
+      'French Pastry Breakfasts & Coastal/North Indian Dinners',
+      'Electric Buggy Tour through White Town & French Quarters',
+      'Electric Shuttle Transfer to Matrimandir Inner Viewing Point',
+      'Private AC Vehicle from Chennai Airport & Senior Escort',
+    ],
+    seniorHighlights: [
+      'Promenade beach is completely closed to motor traffic every evening',
+      'Electric shuttle bus provided inside Auroville forest campus',
+      'Wheelchair accessibility at Sri Aurobindo Ashram',
+      'Peaceful, slow-paced atmosphere with mild coastal breezes',
+    ],
+    itinerary: [
+      { day: 1, title: 'Scenic East Coast Road from Chennai to Pondicherry', desc: 'Pick up at Chennai Airport, picturesque coastal drive past Mahabalipuram, check-in to heritage French quarter hotel.' },
+      { day: 2, title: 'Auroville Matrimandir & Shaded Forest Walk', desc: 'Electric shuttle ride to Matrimandir viewpoint, visit peaceful visitor center gardens and organic bakery.' },
+      { day: 3, title: 'Sri Aurobindo Ashram & French Quarter Buggy Tour', desc: 'Morning quietude at the Ashram Samadhi, afternoon open-air electric buggy ride past mustard-yellow colonial mansions.' },
+      { day: 4, title: 'Paradise Beach Boat Cruise & Promenade Sunset', desc: 'Smooth 15-minute backwater cruise to clean Paradise Beach, evening stroll on car-free beach boulevard.' },
+      { day: 5, title: 'Handmade Paper Factory & Chennai Airport Return', desc: 'Visit historic Sri Aurobindo handmade paper factory with seated demonstration, return transfer to Chennai.' },
+    ],
+  },
+  {
+    id: 'lakshadweep-island-escape',
+    title: 'Lakshadweep Island Escape: Coral Reef Paradise',
+    destination: 'Agatti & Bangaram Island',
+    country: 'India',
+    category: 'beach',
+    image: andamanImg,
+    durationNights: 4,
+    durationDays: 5,
+    rating: 4.96,
+    reviewCount: 86,
+    originalPrice: 52000,
+    discountedPrice: 44500,
+    currency: '₹',
+    seniorBadge: 'Calm Coral Lagoon',
+    overview:
+      'Discover India’s secluded coral jewel. Wade into waist-deep crystal lagoons, view vibrant marine life safely from dry glass-bottom boats, and unwind in private beachfront eco-cottages on white coral sands. (Sample package data)',
+    inclusions: [
+      '4 Nights in Premium Beachfront Beach Cottages with AC',
+      'All Fresh Meals & Tender Coconut Water Daily',
+      'Entry Permits & Island Environmental Protection Fees',
+      'Dry Glass-Bottom Coral Boat Tour with Senior Assistance',
+      'Round-Trip Speedboat / Catamaran Transfers from Agatti Airport',
+    ],
+    seniorHighlights: [
+      'Enclosed lagoons have zero rough waves or strong undercurrents',
+      'Resort cottages open directly onto level white sandy beach',
+      'Dedicated island care coordinator for every pair of seniors',
+      'Doctor and medical dispensary available on Agatti island',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival at Agatti Coral Airstrip & Welcome', desc: 'Spectacular flight landing on strip surrounded by blue sea, warm coconut greeting, transfer to beachfront cottage.' },
+      { day: 2, title: 'Bangaram Island Lagoon Day Cruise', desc: 'Short smooth catamaran ride to uninhabited Bangaram island, relax under thatched umbrellas on powdery sand.' },
+      { day: 3, title: 'Glass-Bottom Boat Marine Safari', desc: 'Dry seated boat ride over living coral reefs observing sea turtles and clownfish without getting wet.' },
+      { day: 4, title: 'Leisure Day in Palm Grove & Sunset High Tea', desc: 'Unhurried day reading by the lagoon, fresh fruit refreshments, tranquil sunset over Arabian Sea.' },
+      { day: 5, title: 'Agatti Airport Transfer & Flight to Kochi', desc: 'Hearty breakfast, shell craft farewell gift, short transfer to Agatti Airport for return flight.' },
+    ],
+  },
+  {
+    id: 'nepal-himalayan-getaway',
+    title: 'Nepal Himalayan Getaway: Kathmandu & Pokhara',
+    destination: 'Kathmandu & Pokhara',
+    country: 'Nepal',
+    category: 'international',
+    image: bannerLakeComoImg,
+    durationNights: 5,
+    durationDays: 6,
+    rating: 4.92,
+    reviewCount: 120,
+    originalPrice: 42000,
+    discountedPrice: 35500,
+    currency: '₹',
+    seniorBadge: 'Mountain Vista Flight',
+    overview:
+      'A deeply spiritual and scenic journey to the lap of the Himalayas. Pray at sacred Pashupatinath Temple with VIP assisted Darshan, cruise calmly on Phewa Lake with Annapurna reflections, and take a gentle scenic flight. (Sample package data)',
+    inclusions: [
+      '5 Nights in 5-Star Heritage Resorts in Kathmandu & Pokhara',
+      'All Meals with Pure Vegetarian & Indian Regional Buffets',
+      'Assisted Special Darshan at Pashupatinath Temple with Electric Cart',
+      'Private Calm Boat Cruise on Phewa Lake with Cushioned Seats',
+      'Private AC Luxury Coach with Senior Tour Manager',
+    ],
+    seniorHighlights: [
+      'VIP assisted entry avoiding long temple lines at Pashupatinath',
+      'Flat, paved lakeside walkways in Pokhara with shaded benches',
+      'Domestic Kathmandu-Pokhara flight included to avoid winding roads',
+      'Indian currency widely accepted; Hindi speaking guides throughout',
+    ],
+    itinerary: [
+      { day: 1, title: 'Welcome to Kathmandu & Boudhanath Stupa Sunset', desc: 'Warm arrival at Tribhuvan Airport, check-in to 5-star hotel, peaceful evening circumambulation of flat paved Boudhanath Stupa.' },
+      { day: 2, title: 'Pashupatinath VIP Special Darshan & Patan Durbar', desc: 'Assisted Darshan at sacred Pashupatinath Temple, visit ancient Patan Durbar Square with carved palaces.' },
+      { day: 3, title: 'Scenic Mountain Flight to Pokhara Lake City', desc: 'Short 25-minute flight with Himalayan views, check-in to serene lakeside resort in Pokhara.' },
+      { day: 4, title: 'Phewa Lake Gentle Boat Cruise & Mountain Museum', desc: 'Calm morning boat ride to Tal Barahi island temple, visit barrier-free International Mountain Museum.' },
+      { day: 5, title: 'Peace Pagoda Viewpoint & Flight to Kathmandu', desc: 'Drive to World Peace Pagoda for panoramic Annapurna mountain view, afternoon flight back to Kathmandu.' },
+      { day: 6, title: 'Pashmina Shopping Assistance & Departure', desc: 'Assisted shopping for certified authentic pashmina shawls and prayer wheels, international airport transfer.' },
+    ],
+  },
+  {
+    id: 'bhutan-cultural-journey',
+    title: 'Bhutan Cultural Journey: Valleys of Happiness',
+    destination: 'Thimphu, Punakha & Phobjikha',
+    country: 'Bhutan',
+    category: 'international',
+    image: bhutanImg,
+    durationNights: 6,
+    durationDays: 7,
+    rating: 4.98,
+    reviewCount: 94,
+    originalPrice: 64000,
+    discountedPrice: 54900,
+    currency: '₹',
+    seniorBadge: 'Unhurried Valley Tour',
+    overview:
+      'A relaxed immersion into Bhutan’s spiritual valleys. Visit peaceful Phobjikha valley, home of the sacred black-necked cranes, spin prayer wheels at historic chortens, and enjoy warm herbal stone bath wellness. (Sample package data)',
+    inclusions: [
+      '6 Nights in Luxury Traditional Bhutanese Boutique Resorts',
+      'All Organic Himalayan & Indian Meals Included',
+      'Bhutan Government Sustainable Development Fee (SDF) Included',
+      'Traditional Dotsho Herbal Hot Stone Bath Session',
+      'Private AC Vehicle with Certified Senior Care Guide',
+    ],
+    seniorHighlights: [
+      'Paved, flat paths at Memorial Chorten and Punakha riverfront',
+      'Clean Himalayan air with verified senior oxygen support in vans',
+      'Zero strenuous hikes: panoramic views directly from vehicle pullouts',
+      'Slow driving speed with warm tea and restroom stops every 90 minutes',
+    ],
+    itinerary: [
+      { day: 1, title: 'Paro Arrival & Thimphu Valley Royal Welcome', desc: 'Breathtaking mountain landing, traditional silk scarf welcome, leisurely drive along scenic river to Thimphu.' },
+      { day: 2, title: 'Centenary Farmers Market & Folk Heritage Museum', desc: 'Explore accessible organic farmers market tasting fresh mountain fruits, visit flat courtyards of Folk Museum.' },
+      { day: 3, title: 'Dochula Pass 108 Memorial Chortens to Punakha', desc: 'Panoramic stop at Dochula Pass with tea and biscuits, descend to warm Punakha valley near Pho Chu river.' },
+      { day: 4, title: 'Punakha Dzong & Historic Suspension Bridge View', desc: 'Visit grand Punakha Dzong via wooden bridge, admire majestic gilded prayer halls with easy access.' },
+      { day: 5, title: 'Phobjikha Glacial Valley & Black-Necked Crane Center', desc: 'Scenic valley drive to tranquil Phobjikha, visit crane sanctuary with high-powered telescopes from heated room.' },
+      { day: 6, title: 'Scenic Paro Valley & Traditional Herbal Stone Bath', desc: 'Drive to Paro, experience rejuvenating mineral hot stone bath with soothing native herbs.' },
+      { day: 7, title: 'Farewell Bhutan Tashi Delek Ceremony & Flight', desc: 'Traditional monastic blessing ceremony, private transfer to Paro International Airport.' },
+    ],
+  },
+  {
+    id: 'vietnam-discovery-heritage',
+    title: 'Vietnam Discovery: Da Nang, Hoi An & Hue',
+    destination: 'Da Nang, Hoi An & Hue',
+    country: 'Vietnam',
+    category: 'international',
+    image: vietnamImg,
+    durationNights: 6,
+    durationDays: 7,
+    rating: 4.93,
+    reviewCount: 110,
+    originalPrice: 56000,
+    discountedPrice: 48200,
+    currency: '₹',
+    seniorBadge: 'Lantern Heritage Walk',
+    overview:
+      'Experience Central Vietnam’s lantern-lit magic. Glide on a lantern boat along Thu Bon River, ride the Ba Na Hills cable car with world-class elevators to the Golden Bridge, and explore the imperial citadel of Hue. (Sample package data)',
+    inclusions: [
+      '6 Nights at 5-Star Beachfront Resorts in Da Nang & Hoi An',
+      'All Meals Included: Indian Buffets & Mild Vietnamese Delicacies',
+      'Ba Na Hills Sun World Cable Car & Elevator Access Passes',
+      'Electric Cart Sightseeing through Ancient UNESCO Hoi An Town',
+      'Private Luxury AC Coach with Senior Tour Escort',
+    ],
+    seniorHighlights: [
+      'Golden Bridge reached via smooth modern Swiss cable car and ramps',
+      'Hoi An ancient town is pedestrian-only with zero vehicle exhaust',
+      'Lantern boat is boarded via stable, flat pontoon ramps',
+      'Indian chefs present at partner restaurants for comfortable dining',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrive in Da Nang & My Khe Beachfront Resort', desc: 'Warm reception at Da Nang International Airport, transfer to luxury oceanfront resort with level beach paths.' },
+      { day: 2, title: 'Ba Na Hills Golden Bridge & French Village', desc: 'Enclosed cable car ride above mountain mist, walk the iconic Golden Bridge held by stone hands with elevators.' },
+      { day: 3, title: 'UNESCO Hoi An Ancient Town & Lantern River Cruise', desc: 'Short transfer to Hoi An, electric cart tour of Japanese Bridge, evening flat wooden boat releasing floating lantern.' },
+      { day: 4, title: 'Tra Que Herb Village & Foot Reflexology Spa', desc: 'Gentle morning in organic herbal garden with coconut water, followed by a 60-minute relaxing foot massage.' },
+      { day: 5, title: 'Hai Van Pass Scenic Drive to Imperial City Hue', desc: 'Comfortable coastal drive over legendary Hai Van Pass, explore flat courtyards of Hue Imperial Citadel by electric car.' },
+      { day: 6, title: 'Thien Mu Pagoda Perfume River Dragon Boat', desc: 'Calm river cruise on dragon boat to historic pagoda with gentle paved pathways, royal banquet dinner.' },
+      { day: 7, title: 'Da Nang Departure Flight Back Home', desc: 'Buffet breakfast, tailored Vietnamese coffee and silk gift shopping, direct airport transfer.' },
+    ],
+  },
+  {
+    id: 'bali-lombok-escape',
+    title: 'Bali & Lombok Escape: Gili Islands & Rainforest',
+    destination: 'Sanur, Lombok & Gili Air',
+    country: 'Indonesia',
+    category: 'international',
+    image: baliMainImg,
+    durationNights: 6,
+    durationDays: 7,
+    rating: 4.90,
+    reviewCount: 102,
+    originalPrice: 55000,
+    discountedPrice: 46999,
+    currency: '₹',
+    seniorBadge: 'Quiet Coastal Breeze',
+    overview:
+      'Escape to the calm, laid-back shores of Sanur and Lombok. Stroll flat 5km beachfront boardwalks, cruise on calm catamarans around horse-drawn Gili Air, and enjoy gentle aromatherapy treatments. (Sample package data)',
+    inclusions: [
+      '6 Nights in 5-Star Tropical Beachfront Resorts with Elevators',
+      'Daily International & Indian Breakfasts plus 4 Curated Dinners',
+      'Smooth Luxury Catamaran Cruise between Bali and Lombok',
+      'Horse-Drawn Cidomo Carriage Ride on Vehicle-Free Gili Air',
+      'Private AC Vehicle with Senior-Dedicated Chauffeur',
+    ],
+    seniorHighlights: [
+      'Sanur features Bali’s only continuous flat paved beach promenade',
+      'Horse carriage on Gili island eliminates walking in the sun',
+      'Catamaran has air-conditioned main cabin with plush armchairs',
+      'Doctor on call and private hospital partner in Sanur',
+    ],
+    itinerary: [
+      { day: 1, title: 'Welcome to Sanur & Seaside Promenade Stroll', desc: 'Flower garland greeting at Denpasar Airport, check-in to quiet Sanur beachfront resort, peaceful sunset promenade.' },
+      { day: 2, title: 'Tirta Empul Holy Springs & Coffee Plantation', desc: 'Visit peaceful holy water springs with paved courtyards, herbal tea tasting overlooking gentle green terraces.' },
+      { day: 3, title: 'Luxury Catamaran Cruise to Pristine Lombok', desc: 'Air-conditioned catamaran ride across Lombok Strait, transfer to Senggigi beachfront resort with coconut palms.' },
+      { day: 4, title: 'Horse Carriage Tour of Vehicle-Free Gili Air', desc: 'Board traditional shaded wooden boat to Gili Air, ride horse-drawn carriage along turquoise shoreline.' },
+      { day: 5, title: 'Sukara Pottery Village & Sasak Heritage', desc: 'Gentle cultural drive to traditional hand-weaving village, meet local weavers with seated tea demonstrations.' },
+      { day: 6, title: 'Return Fast-Boat to Bali & Gala Farewell Dinner', desc: 'Return cruise to Bali, afternoon resort rest by the poolside cabanas, seafood & Indian fusion dinner.' },
+      { day: 7, title: 'Denpasar Departure Flight with Souvenir Gifts', desc: 'Breakfast buffet, shopping assistance for Balinese batik and natural vanilla, airport drop.' },
+    ],
+  },
+  {
+    id: 'malaysia-kuala-lumpur',
+    title: 'Malaysia & Kuala Lumpur: Garden City & Penang',
+    destination: 'Kuala Lumpur & Penang',
+    country: 'Malaysia',
+    category: 'international',
+    image: singaporeImg,
+    durationNights: 5,
+    durationDays: 6,
+    rating: 4.89,
+    reviewCount: 132,
+    originalPrice: 49000,
+    discountedPrice: 41999,
+    currency: '₹',
+    seniorBadge: 'Modern City Comfort',
+    overview:
+      'Explore Malaysia’s lush capital and UNESCO heritage island of Penang. Marvel at the Petronas Twin Towers from air-conditioned observation decks, ride Penang Hill Funicular train in comfort, and savor diverse culinary feasts. (Sample package data)',
+    inclusions: [
+      '5 Nights in 5-Star Centrally Located Hotels with Elevators',
+      'Petronas Twin Towers Skybridge & 86th Floor Observation Tickets',
+      'Penang Hill Swiss Funicular Train Round-Trip Tickets',
+      'Batik Art Demonstration & Guided Heritage Trisha Ride',
+      'Private AC Luxury Van with English/Hindi Speaking Driver',
+    ],
+    seniorHighlights: [
+      '100% covered air-conditioned pedestrian skywalks in Kuala Lumpur',
+      'Funicular railway reaches Penang Hill summit with zero hiking',
+      'Abundant authentic South Indian and North Indian pure vegetarian dining',
+      'Smooth modern highway travel between cities',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival in Kuala Lumpur & KLCC Park View', desc: 'VIP airport meet and assist, transfer to downtown 5-star hotel, evening view of illuminated Petronas Symphony fountains.' },
+      { day: 2, title: 'Petronas Twin Towers Skybridge & Batu Caves Lift', desc: 'Fast-track elevator ascent to Skybridge, drive past Batu Caves with cable car option, visit Royal Selangor pewter center.' },
+      { day: 3, title: 'Scenic Highway Drive to Heritage Island Penang', desc: 'Comfortable ride across Penang Bridge in luxury van, check-in to historic beachfront resort in George Town.' },
+      { day: 4, title: 'Penang Hill Funicular Train & Botanical Gardens', desc: 'Ride modern enclosed funicular train to cool hilltop viewpoint, stroll through flat paved botanical flower walks.' },
+      { day: 5, title: 'Kek Lok Si Temple Incline Lift & Street Art Trisha', desc: 'Visit Kek Lok Si temple using inclined glass elevator, gentle trisha bicycle carriage through George Town heritage streets.' },
+      { day: 6, title: 'Penang Airport Departure Flight', desc: 'Enjoy buffet breakfast, purchase Penang white coffee and nutmeg balm, transfer to Penang International Airport.' },
+    ],
+  },
+  {
+    id: 'turkey-heritage-coast',
+    title: 'Turkey Heritage & Coast: Istanbul & Turquoise Coast',
+    destination: 'Istanbul & Antalya',
+    country: 'Turkey',
+    category: 'international',
+    image: bannerSantoriniImg,
+    durationNights: 7,
+    durationDays: 8,
+    rating: 4.95,
+    reviewCount: 98,
+    originalPrice: 115000,
+    discountedPrice: 98000,
+    currency: '₹',
+    seniorBadge: 'Bosphorus Private Cruise',
+    overview:
+      'A timeless cross-continental journey where East meets West. Sail the legendary Bosphorus on a private yacht, visit Hagia Sophia and Topkapi Palace with golf carts and wheelchair ramps, and bask on Antalya’s Mediterranean coast. (Sample package data)',
+    inclusions: [
+      '7 Nights in 5-Star Historic & Mediterranean Beachfront Resorts',
+      'All Breakfasts & Multi-Cuisine Dinners with Indian Catering Options',
+      'Private Luxury Bosphorus Sunset Yacht Cruise with Turkish Tea',
+      'VIP Skip-the-Line Elevator Entries at Topkapi Palace & Hagia Sophia',
+      'Private Executive High-Roof Coach with Senior Guide Escort',
+    ],
+    seniorHighlights: [
+      'Private yacht with shaded salon and level boarding ramps',
+      'Electric carts available inside vast Topkapi Palace courtyards',
+      'Elevator access and flat paved streets in Antalya Marina district',
+      'Warm hospitality with Turkish tea and assistance at every landmark',
+    ],
+    itinerary: [
+      { day: 1, title: 'Arrival in Historic Istanbul & Bosphorus Hotel', desc: 'Welcome at Istanbul New Airport, executive transfer to 5-star Bosphorus waterfront hotel, evening rest.' },
+      { day: 2, title: 'Hagia Sophia & Blue Mosque Level Gallery Access', desc: 'VIP guided tour of Hagia Sophia with ramp entry, explore Blue Mosque with soft carpeted floors and resting benches.' },
+      { day: 3, title: 'Topkapi Palace Electric Cart Tour & Spice Bazaar', desc: 'Golf cart access across Topkapi courtyards, visit covered Egyptian Spice Bazaar with fragrant teas and sweets.' },
+      { day: 4, title: 'Private Sunset Bosphorus Yacht Cruise', desc: 'Board private yacht for a gentle 2-hour sunset cruise between Europe and Asia, sipping hot Turkish apple tea.' },
+      { day: 5, title: 'Domestic Flight to Mediterranean Antalya', desc: 'Short 1-hour flight to sunny Antalya, check-in to cliffside luxury resort with panoramic sea elevators.' },
+      { day: 6, title: 'Kaleiçi Old Town Marina & Duden Waterfalls', desc: 'Elevator descent to Antalya yacht marina, scenic vehicle drive to lower Duden waterfall cascading into turquoise sea.' },
+      { day: 7, title: 'Aspendos Roman Theatre & Leisure Beachfront Day', desc: 'Visit ancient theatre with accessible lower tier seating, afternoon leisure at private resort beach cabanas.' },
+      { day: 8, title: 'Antalya / Istanbul Departure Return Flight', desc: 'Buffet breakfast, Turkish delight gift boxes, airport transfer with full wheelchair and luggage escort.' },
+    ],
+  },
 ];
 
 type CategoryFilter = 'all' | 'domestic' | 'international' | 'scenic' | 'spiritual' | 'beach';
@@ -699,11 +1328,50 @@ export const PopularHolidayPackages: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<'recommended' | 'price-asc' | 'price-desc' | 'duration'>('recommended');
+  const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
+  const sortDropdownRef = React.useRef<HTMLDivElement>(null);
+  const sortButtonRef = React.useRef<HTMLButtonElement>(null);
   const [wishlist, setWishlist] = useState<Record<string, boolean>>({});
+
+  // Close sort dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        sortDropdownRef.current &&
+        !sortDropdownRef.current.contains(event.target as Node) &&
+        sortButtonRef.current &&
+        !sortButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsSortDropdownOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsSortDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
   const [selectedPackage, setSelectedPackage] = useState<HolidayPackage | null>(null);
   const [activeModalTab, setActiveModalTab] = useState<'overview' | 'itinerary' | 'senior-care' | 'inquiry'>('overview');
   const [inquirySubmitted, setInquirySubmitted] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  // Pagination state: 16 packages per page
+  const ITEMS_PER_PAGE = 16;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Reset pagination to Page 1 when category, search, or sort changes
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [activeCategory, searchQuery, sortBy]);
 
   // Form states inside modal
   const [inquirerName, setInquirerName] = useState('');
@@ -754,6 +1422,23 @@ export const PopularHolidayPackages: React.FC = () => {
     });
   }, [activeCategory, searchQuery, sortBy]);
 
+  const totalPages = Math.max(1, Math.ceil(filteredPackages.length / ITEMS_PER_PAGE));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const startIndex = (safeCurrentPage - 1) * ITEMS_PER_PAGE;
+  const paginatedPackages = useMemo(() => {
+    return filteredPackages.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [filteredPackages, startIndex]);
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      const el = document.getElementById('popular-packages');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+
   const handleInquirySubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setInquirySubmitted(true);
@@ -765,7 +1450,7 @@ export const PopularHolidayPackages: React.FC = () => {
   };
 
   return (
-    <section id="popular-packages" className="w-full bg-[#FAF7F0] pt-3 sm:pt-4 pb-10 sm:pb-12 border-t border-[#E8E2D2]">
+    <section id="popular-packages" className="w-full bg-[#FAF7F0] pt-3 sm:pt-4 pb-6 sm:pb-8 border-t border-[#E8E2D2]">
       {/* Toast notification */}
       {toastMessage && (
         <div className="fixed bottom-6 right-6 z-50 bg-[#000000] text-white px-5 py-3.5 rounded-xl shadow-2xl border border-[#FFC928]/40 flex items-center gap-3 animate-fade-in max-w-md">
@@ -827,8 +1512,8 @@ export const PopularHolidayPackages: React.FC = () => {
           </div>
 
           {/* Search Input & Sort Selector */}
-          <div className="flex items-center gap-3">
-            <div className="relative flex-1 sm:w-64">
+          <div className="flex items-center gap-3 shrink-0">
+            <div className="relative flex-1 sm:w-64 lg:w-[295px] xl:w-[315px]">
               <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
@@ -848,19 +1533,77 @@ export const PopularHolidayPackages: React.FC = () => {
               )}
             </div>
 
-            <div className="flex items-center gap-1.5 shrink-0">
-              <SlidersHorizontal className="w-4 h-4 text-slate-500 hidden sm:inline" />
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
-                aria-label="Sort packages by"
-                className="text-xs sm:text-sm bg-slate-50 border border-slate-200 rounded-xl px-2.5 py-1.5 text-slate-700 font-medium focus:outline-none focus:ring-2 focus:ring-[#000000]/30 cursor-pointer"
-              >
-                <option value="recommended">Featured</option>
-                <option value="price-asc">Price: Low to High</option>
-                <option value="price-desc">Price: High to Low</option>
-                <option value="duration">Longest Duration</option>
-              </select>
+            <div className="relative flex items-center gap-1.5 sm:gap-2 shrink-0">
+              <SlidersHorizontal className="w-4 h-4 text-slate-500 hidden sm:inline shrink-0" />
+              
+              <div className="relative sm:min-w-[155px] lg:min-w-[165px]">
+                <button
+                  ref={sortButtonRef}
+                  type="button"
+                  onClick={() => setIsSortDropdownOpen((prev) => !prev)}
+                  className={`w-full flex items-center justify-between gap-2 text-xs sm:text-sm bg-slate-50 border rounded-xl px-3 py-1.5 text-slate-800 font-medium transition-all cursor-pointer ${
+                    isSortDropdownOpen
+                      ? 'bg-white border-[#FFC928] ring-2 ring-[#FFC928]/40 shadow-sm'
+                      : 'border-slate-200 hover:border-slate-300 hover:bg-slate-100/70'
+                  }`}
+                  aria-haspopup="listbox"
+                  aria-expanded={isSortDropdownOpen}
+                  aria-label="Sort packages by"
+                >
+                  <span className="truncate">
+                    {sortBy === 'recommended' && 'Featured'}
+                    {sortBy === 'price-asc' && 'Price: Low to High'}
+                    {sortBy === 'price-desc' && 'Price: High to Low'}
+                    {sortBy === 'duration' && 'Longest Duration'}
+                  </span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 text-slate-500 shrink-0 transition-transform duration-200 ${
+                      isSortDropdownOpen ? 'rotate-180 text-[#000000]' : ''
+                    }`}
+                  />
+                </button>
+
+                {/* Polished Custom Dropdown Menu: Opens below trigger, matches width, ivory/white styling */}
+                {isSortDropdownOpen && (
+                  <div
+                    ref={sortDropdownRef}
+                    className="absolute right-0 sm:left-0 top-full mt-1.5 w-[165px] sm:w-full min-w-[155px] bg-white rounded-xl shadow-xl border border-slate-200/90 p-1.5 z-40 animate-in fade-in zoom-in-95 duration-150"
+                    role="listbox"
+                    aria-label="Sort options"
+                  >
+                    {[
+                      { value: 'recommended', label: 'Featured' },
+                      { value: 'price-asc', label: 'Price: Low to High' },
+                      { value: 'price-desc', label: 'Price: High to Low' },
+                      { value: 'duration', label: 'Longest Duration' },
+                    ].map((opt) => {
+                      const isSelected = sortBy === opt.value;
+                      return (
+                        <button
+                          key={opt.value}
+                          type="button"
+                          role="option"
+                          aria-selected={isSelected}
+                          onClick={() => {
+                            setSortBy(opt.value as any);
+                            setIsSortDropdownOpen(false);
+                          }}
+                          className={`w-full flex items-center justify-between px-2.5 py-2 text-xs sm:text-[13px] rounded-lg transition-colors cursor-pointer text-left ${
+                            isSelected
+                              ? 'bg-[#FFF7D6] text-black font-bold'
+                              : 'text-slate-700 hover:bg-slate-50 hover:text-black font-medium'
+                          }`}
+                        >
+                          <span className="truncate">{opt.label}</span>
+                          {isSelected && (
+                            <Check className="w-3.5 h-3.5 text-[#000000] shrink-0 ml-1.5 stroke-[2.5]" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -881,7 +1624,7 @@ export const PopularHolidayPackages: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredPackages.map((pkg) => {
+            {paginatedPackages.map((pkg) => {
               const isSaved = wishlist[pkg.id] || false;
               const discountPercent = Math.round(
                 ((pkg.originalPrice - pkg.discountedPrice) / pkg.originalPrice) * 100
@@ -1009,7 +1752,7 @@ export const PopularHolidayPackages: React.FC = () => {
                           }}
                           className="w-full py-2.5 px-3 rounded-xl border border-[#000000] text-[#000000] hover:bg-slate-50 text-xs sm:text-sm font-bold transition-all text-center cursor-pointer"
                         >
-                          View Details
+                          View Itinerary
                         </button>
                         <button
                           onClick={() => {
@@ -1030,8 +1773,45 @@ export const PopularHolidayPackages: React.FC = () => {
           </div>
         )}
 
+        {/* Centered Pagination Controls */}
+        {filteredPackages.length > 0 && (
+          <div className="mt-6 sm:mt-7 flex items-center justify-center gap-3 sm:gap-4 select-none">
+            <button
+              type="button"
+              onClick={() => handlePageChange(safeCurrentPage - 1)}
+              disabled={safeCurrentPage <= 1}
+              aria-label="Previous page"
+              className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
+                safeCurrentPage <= 1
+                  ? 'bg-slate-200/70 text-slate-400 cursor-not-allowed opacity-60'
+                  : 'bg-[#000000] text-white hover:bg-neutral-800 hover:text-[#FFC928] shadow-sm active:scale-95'
+              }`}
+            >
+              <span>← Previous</span>
+            </button>
+
+            <div className="px-4 py-2.5 bg-white rounded-xl border border-slate-200 text-xs sm:text-sm font-bold text-slate-800 shadow-xs flex items-center gap-1.5">
+              <span>Page {safeCurrentPage} of {totalPages}</span>
+            </div>
+
+            <button
+              type="button"
+              onClick={() => handlePageChange(safeCurrentPage + 1)}
+              disabled={safeCurrentPage >= totalPages}
+              aria-label="Next page"
+              className={`px-4 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold flex items-center gap-1.5 transition-all duration-200 cursor-pointer ${
+                safeCurrentPage >= totalPages
+                  ? 'bg-slate-200/70 text-slate-400 cursor-not-allowed opacity-60'
+                  : 'bg-[#000000] text-white hover:bg-neutral-800 hover:text-[#FFC928] shadow-sm active:scale-95'
+              }`}
+            >
+              <span>Next →</span>
+            </button>
+          </div>
+        )}
+
         {/* Bottom Senior Assistance Assurance Banner */}
-        <div className="mt-8 sm:mt-12 mx-3 sm:mx-0 bg-gradient-to-r from-[#000000] via-[#000000] to-[#000000] rounded-2xl p-6 sm:p-8 text-white shadow-xl border border-[#FFC928]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+        <div className="mt-6 sm:mt-8 mx-3 sm:mx-0 bg-gradient-to-r from-[#000000] via-[#000000] to-[#000000] rounded-2xl p-5 sm:p-7 text-white shadow-xl border border-[#FFC928]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
           <div className="flex items-start sm:items-center gap-4 text-left">
             <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#FFC928]/20 flex items-center justify-center text-[#FFC928] shrink-0 border border-[#FFC928]/40">
               <Phone className="w-6 h-6 sm:w-7 sm:h-7" />
@@ -1064,31 +1844,31 @@ export const PopularHolidayPackages: React.FC = () => {
           aria-modal="true"
           className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
         >
-          <div className="bg-white w-full max-w-4xl rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-auto max-h-[92vh] flex flex-col border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+          <div className="bg-white w-[89vw] max-w-[400px] sm:w-full sm:max-w-4xl h-auto max-h-[80dvh] sm:max-h-[92vh] rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden my-auto mx-auto flex flex-col border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
             {/* Modal Header */}
-            <div className="relative bg-[#000000] text-white p-5 sm:p-6 shrink-0 flex items-start justify-between border-b border-[#FFC928]/30">
-              <div className="pr-8">
-                <div className="flex items-center gap-2 text-xs font-semibold text-[#FFC928] uppercase tracking-wider mb-1">
-                  <MapPin className="w-3.5 h-3.5" />
-                  <span>{selectedPackage.destination}, {selectedPackage.country}</span>
+            <div className="relative bg-[#000000] text-white p-4 sm:p-6 shrink-0 flex items-start justify-between border-b border-[#FFC928]/30">
+              <div className="pr-3 sm:pr-8">
+                <div className="flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-semibold text-[#FFC928] uppercase tracking-wider mb-1">
+                  <MapPin className="w-3.5 h-3.5 shrink-0" />
+                  <span className="truncate">{selectedPackage.destination}, {selectedPackage.country}</span>
                   <span aria-hidden="true">·</span>
-                  <span>{selectedPackage.durationNights}N / {selectedPackage.durationDays}D</span>
+                  <span className="shrink-0">{selectedPackage.durationNights}N / {selectedPackage.durationDays}D</span>
                 </div>
-                <h3 className="text-lg sm:text-2xl font-black text-white">
+                <h3 className="text-base sm:text-2xl font-black text-white leading-snug">
                   {selectedPackage.title}
                 </h3>
               </div>
               <button
                 onClick={() => setSelectedPackage(null)}
-                className="w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer shrink-0"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer shrink-0"
                 aria-label="Close modal"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
             </div>
 
             {/* Modal Navigation Tabs */}
-            <div className="flex items-center gap-2 px-5 sm:px-6 pt-3 border-b border-slate-200 bg-slate-50 shrink-0 overflow-x-auto">
+            <div className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-6 pt-2 sm:pt-3 border-b border-slate-200 bg-slate-50 shrink-0 overflow-x-auto">
               {[
                 { id: 'overview', label: 'Overview & Highlights' },
                 { id: 'itinerary', label: 'Day-by-Day Itinerary' },
@@ -1098,7 +1878,7 @@ export const PopularHolidayPackages: React.FC = () => {
                 <button
                   key={tab.id}
                   onClick={() => setActiveModalTab(tab.id as any)}
-                  className={`py-2.5 px-3 text-xs sm:text-sm font-bold border-b-2 whitespace-nowrap transition-colors cursor-pointer ${
+                  className={`py-2 sm:py-2.5 px-2.5 sm:px-3 text-xs sm:text-sm font-bold border-b-2 whitespace-nowrap transition-colors cursor-pointer shrink-0 ${
                     activeModalTab === tab.id
                       ? 'border-[#000000] text-[#000000]'
                       : 'border-transparent text-slate-500 hover:text-slate-800'
@@ -1110,7 +1890,7 @@ export const PopularHolidayPackages: React.FC = () => {
             </div>
 
             {/* Modal Scrollable Body */}
-            <div className="p-5 sm:p-6 overflow-y-auto flex-1 space-y-6">
+            <div className="p-4 sm:p-6 overflow-y-auto flex-1 space-y-4 sm:space-y-6 overscroll-contain">
               {activeModalTab === 'overview' && (
                 <div className="space-y-6">
                   {/* Photo and Quick Stats */}
@@ -1338,14 +2118,14 @@ export const PopularHolidayPackages: React.FC = () => {
             </div>
 
             {/* Modal Sticky Bottom Bar */}
-            <div className="bg-slate-50 border-t border-slate-200 px-5 sm:px-6 py-3 shrink-0 flex items-center justify-between text-xs text-slate-500">
-              <span className="flex items-center gap-1.5 font-medium">
-                <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                100% Verified Senior-Safe Properties
+            <div className="bg-slate-50 border-t border-slate-200 px-4 sm:px-6 py-2.5 sm:py-3 shrink-0 flex items-center justify-between text-[11px] sm:text-xs text-slate-500">
+              <span className="flex items-center gap-1.5 font-medium truncate mr-2">
+                <ShieldCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-emerald-600 shrink-0" />
+                <span className="truncate">100% Verified Senior-Safe</span>
               </span>
               <button
                 onClick={() => setSelectedPackage(null)}
-                className="text-slate-600 hover:text-slate-900 font-semibold cursor-pointer"
+                className="text-slate-600 hover:text-slate-900 font-semibold cursor-pointer shrink-0"
               >
                 Close
               </button>

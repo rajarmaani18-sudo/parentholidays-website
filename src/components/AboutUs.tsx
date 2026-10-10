@@ -29,6 +29,8 @@ import {
 import heroCoupleImg from '../assets/images/hero_seniors_travel_1791629726859.jpg';
 import careManagerImg from '../assets/images/about_care_manager_1791638888190.jpg';
 import doctorAssuranceImg from '../assets/images/about_doctor_assurance_1791638917739.jpg';
+import TestimonialsSection from './TestimonialsSection';
+import DreamVacationCTA from './DreamVacationCTA';
 
 interface AboutUsProps {
   onNavigateHome?: () => void;
@@ -138,53 +140,57 @@ export const AboutUs: React.FC<AboutUsProps> = ({
       </section>
 
       {/* 2. OUR ORIGIN STORY & FOUNDING PURPOSE */}
-      <section className="py-12 sm:py-16 lg:py-20">
+      <section className="py-7 sm:py-9 lg:py-10">
         <div className="w-[calc(100%-24px)] sm:w-[calc(100%-48px)] md:w-[calc(100%-76px)] max-w-none mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-            {/* Story text */}
-            <div className="lg:col-span-7 space-y-5">
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black bg-[#FFC928]/20 px-3 py-1 rounded-md border border-[#FFC928]/40">
-                <Heart className="w-3.5 h-3.5 fill-[#FFC928] text-black" />
-                <span>Our Origin Story</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-stretch">
+            {/* Story text column on the left */}
+            <div className="lg:col-span-7 flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black bg-[#FFC928]/20 px-3 py-1 rounded-md border border-[#FFC928]/40 mb-2 sm:mb-2.5">
+                  <Heart className="w-3.5 h-3.5 fill-[#FFC928] text-black" />
+                  <span>Our Origin Story</span>
+                </div>
+
+                <h2 className="text-2xl sm:text-3xl lg:text-[25px] xl:text-[28px] 2xl:text-[31px] font-extrabold text-black tracking-tight leading-snug lg:leading-[1.24] mb-2.5 sm:mb-3">
+                  <span className="inline lg:block">Born From a Simple Question: Why Is Vacationing</span>{' '}
+                  <span className="inline lg:block">So Stressful for Our Aging Parents?</span>
+                </h2>
+
+                <p className="text-xs sm:text-sm lg:text-[14.5px] xl:text-[15px] text-neutral-700 leading-relaxed mb-2.5 sm:mb-3">
+                  A few years ago, we booked a commercial package tour for our retired parents. On paper, it was billed as a dream vacation. But in reality, it turned into an exhausting trial: rushing down hotel stairs at 6:00 AM, dragging heavy suitcases across train platforms, walking miles without shaded resting benches, and worrying about unfamiliar spicy food and missed heart medications.
+                </p>
+
+                <p className="text-xs sm:text-sm lg:text-[14.5px] xl:text-[15px] text-neutral-700 leading-relaxed mb-3 sm:mb-3.5">
+                  We realized that mainstream travel is designed solely for rapid, young tourists. Senior citizens who have spent their entire lives providing for their families deserve something profoundly different: gentle itineraries that respect their pace, rooms with walk-in showers and elevators, nutritious mild meals, and on-ground companions who watch over them like family.
+                </p>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-black tracking-tight leading-snug">
-                Born From a Simple Question: Why Is Vacationing So Stressful for Our Aging Parents?
-              </h2>
-
-              <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
-                A few years ago, we booked a commercial package tour for our retired parents. On paper, it was billed as a dream vacation. But in reality, it turned into an exhausting trial: rushing down hotel stairs at 6:00 AM, dragging heavy suitcases across train platforms, walking miles without shaded resting benches, and worrying about unfamiliar spicy food and missed heart medications.
-              </p>
-
-              <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
-                We realized that mainstream travel is designed solely for rapid, young tourists. Senior citizens who have spent their entire lives providing for their families deserve something profoundly different: gentle itineraries that respect their pace, rooms with walk-in showers and elevators, nutritious mild meals, and on-ground companions who watch over them like family.
-              </p>
-
-              <div className="p-5 rounded-2xl bg-black text-white border-l-4 border-[#FFC928] shadow-md">
-                <p className="italic text-sm sm:text-base text-neutral-200 leading-relaxed">
+              {/* Founding team quote card positioned naturally beneath paragraphs */}
+              <div className="p-3.5 sm:p-4 lg:p-4.5 rounded-2xl bg-black text-white border-l-4 border-[#FFC928] shadow-md mt-3 sm:mt-3.5">
+                <p className="italic text-xs sm:text-sm lg:text-[13.5px] text-neutral-200 leading-relaxed">
                   "Our parents spent 30 to 40 years putting everyone else first. When they finally have the time to see Kashmir, Kerala, or Switzerland, they should not have to worry about a single stair, heavy bag, or medicine dose. That is our solemn commitment at ParentHolidays."
                 </p>
-                <div className="mt-3 flex items-center justify-between text-xs sm:text-sm">
+                <div className="mt-2 sm:mt-2.5 flex items-center justify-between text-xs sm:text-sm">
                   <span className="font-bold text-[#FFC928]">— The Founding Team, ParentHolidays</span>
-                  <span className="text-neutral-400">Crafted with Gratitude</span>
+                  <span className="text-neutral-400 text-[11px] sm:text-xs">Crafted with Gratitude</span>
                 </div>
               </div>
             </div>
 
-            {/* Story Image Panel */}
-            <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-neutral-300 bg-white">
+            {/* Story Image Panel on the right matching left column height */}
+            <div className="lg:col-span-5 flex flex-col justify-start">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border border-neutral-300 bg-white flex flex-col h-full max-h-[460px] lg:max-h-[475px] xl:max-h-[490px]">
                 <img
                   src={careManagerImg}
                   alt="Senior couple taking a serene walk with their dedicated ParentHolidays tour care manager"
-                  className="w-full h-[360px] sm:h-[420px] object-cover"
+                  className="w-full flex-1 h-[220px] sm:h-[260px] lg:h-[310px] xl:h-[325px] min-h-[200px] object-cover"
                 />
-                <div className="p-5 bg-black text-white">
-                  <div className="flex items-center gap-2 text-[#FFC928] font-bold text-sm">
-                    <ShieldCheck className="w-5 h-5" />
+                <div className="p-3.5 sm:p-4 bg-black text-white shrink-0">
+                  <div className="flex items-center gap-2 text-[#FFC928] font-bold text-xs sm:text-sm">
+                    <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
                     <span>Trained Senior Tour Managers on Every Departure</span>
                   </div>
-                  <p className="text-xs text-neutral-300 mt-1">
+                  <p className="text-[11px] sm:text-xs text-neutral-300 mt-1 leading-relaxed">
                     Every group has a certified bilingual care manager responsible for medication reminders, luggage coordination, and personalized assistance.
                   </p>
                 </div>
@@ -195,9 +201,9 @@ export const AboutUs: React.FC<AboutUsProps> = ({
       </section>
 
       {/* 3. THE 6 PILLARS OF PARENTHOLIDAYS (THE SENIOR-FIRST DIFFERENCE) */}
-      <section className="py-8 sm:py-16 bg-white border-y border-neutral-200">
+      <section className="py-7 sm:py-11 bg-white border-y border-neutral-200">
         <div className="w-[calc(100%-24px)] sm:w-[calc(100%-48px)] md:w-[calc(100%-76px)] max-w-none mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
+          <div className="text-center max-w-3xl mx-auto mb-6 sm:mb-8">
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black bg-[#FFC928]/30 px-3 py-1 rounded-md border border-[#FFC928]">
               <Sparkles className="w-3.5 h-3.5 text-black" />
               <span>Thoughtful Engineering for Comfort</span>
@@ -329,167 +335,169 @@ export const AboutUs: React.FC<AboutUsProps> = ({
       </section>
 
       {/* 4. SENIOR MEDICAL PROTOCOL ASSURANCE (INTERACTIVE DETAIL SECTION) */}
-      <section className="py-12 sm:py-16 lg:py-20">
+      <section className="py-7 sm:py-9 lg:py-10">
         <div className="w-[calc(100%-24px)] sm:w-[calc(100%-48px)] md:w-[calc(100%-76px)] max-w-none mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            {/* Image panel */}
-            <div className="lg:col-span-5 order-2 lg:order-1">
-              <div className="rounded-2xl overflow-hidden shadow-2xl border-2 border-black bg-white">
-                <img
-                  src={doctorAssuranceImg}
-                  alt="Doctor and medical care coordinator reviewing senior travel checklist"
-                  className="w-full h-[360px] sm:h-[400px] object-cover"
-                />
-                <div className="p-5 bg-black text-white">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs uppercase font-bold tracking-wider text-[#FFC928]">
-                      Certified Medical Safety Protocol
-                    </span>
-                    <span className="text-xs font-semibold text-neutral-300">ISO 9001:2015 Standards</span>
-                  </div>
-                  <h4 className="font-bold text-base mt-1 text-white">
-                    Emergency Hospital Network in All 45+ Destinations
-                  </h4>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-stretch">
+            {/* Interactive Tabs on the left */}
+            <div className="lg:col-span-7 flex flex-col justify-between">
+              <div>
+                <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black bg-[#FFC928]/20 px-3 py-1 rounded-md border border-[#FFC928]/40 mb-1.5 sm:mb-2">
+                  <ShieldCheck className="w-3.5 h-3.5 fill-[#FFC928] text-black" />
+                  <span>Total Family Peace of Mind</span>
                 </div>
-              </div>
-            </div>
 
-            {/* Interactive Tabs */}
-            <div className="lg:col-span-7 order-1 lg:order-2 space-y-6">
-              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black bg-[#FFC928]/20 px-3 py-1 rounded-md border border-[#FFC928]/40">
-                <ShieldCheck className="w-3.5 h-3.5 fill-[#FFC928] text-black" />
-                <span>Total Family Peace of Mind</span>
-              </div>
+                <h2 className="text-2xl sm:text-3xl lg:text-[25px] xl:text-[28px] 2xl:text-[31px] font-extrabold text-black tracking-tight leading-snug lg:whitespace-nowrap mb-1.5 sm:mb-2">
+                  How We Safeguard Your Parents at Every Step
+                </h2>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-black tracking-tight leading-snug">
-                How We Safeguard Your Parents at Every Step
-              </h2>
+                <p className="text-xs sm:text-sm lg:text-[14.5px] text-neutral-700 leading-relaxed mb-2.5 sm:mb-3">
+                  When you entrust your parents to ParentHolidays, you receive continuous updates, dedicated phone lines, and complete medical preparedness before, during, and after their journey.
+                </p>
 
-              <p className="text-sm sm:text-base text-neutral-700 leading-relaxed">
-                When you entrust your parents to ParentHolidays, you receive continuous updates, dedicated phone lines, and complete medical preparedness before, during, and after their journey.
-              </p>
-
-              {/* Tab Selector Buttons */}
-              <div className="flex flex-wrap gap-2 p-1.5 bg-[#E8E2D2] rounded-xl">
-                <button
-                  type="button"
-                  onClick={() => setActiveSafetyTab('medical')}
-                  className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
-                    activeSafetyTab === 'medical'
-                      ? 'bg-black text-[#FFC928] shadow-md'
-                      : 'text-neutral-800 hover:text-black'
-                  }`}
-                >
-                  Medical Safeguards
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveSafetyTab('pace')}
-                  className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
-                    activeSafetyTab === 'pace'
-                      ? 'bg-black text-[#FFC928] shadow-md'
-                      : 'text-neutral-800 hover:text-black'
-                  }`}
-                >
-                  Slow-Paced Travel
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveSafetyTab('stays')}
-                  className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
-                    activeSafetyTab === 'stays'
-                      ? 'bg-black text-[#FFC928] shadow-md'
-                      : 'text-neutral-800 hover:text-black'
-                  }`}
-                >
-                  Accessible Stays
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setActiveSafetyTab('dining')}
-                  className={`px-4 py-2 text-xs sm:text-sm font-bold rounded-lg transition-all cursor-pointer ${
-                    activeSafetyTab === 'dining'
-                      ? 'bg-black text-[#FFC928] shadow-md'
-                      : 'text-neutral-800 hover:text-black'
-                  }`}
-                >
-                  Custom Nutrition
-                </button>
+                {/* Tab Selector Buttons */}
+                <div className="flex flex-nowrap sm:flex-wrap gap-1 sm:gap-2 p-1 sm:p-1.5 bg-[#E8E2D2] rounded-xl w-full mb-2 sm:mb-2.5">
+                  <button
+                    type="button"
+                    onClick={() => setActiveSafetyTab('medical')}
+                    className={`flex-1 sm:flex-none text-center px-1 sm:px-4 py-1.5 sm:py-2 text-[10px] min-[375px]:text-[11px] sm:text-sm font-bold rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                      activeSafetyTab === 'medical'
+                        ? 'bg-black text-[#FFC928] shadow-md'
+                        : 'text-neutral-800 hover:text-black'
+                    }`}
+                  >
+                    Medical Care
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveSafetyTab('pace')}
+                    className={`flex-1 sm:flex-none text-center px-1 sm:px-4 py-1.5 sm:py-2 text-[10px] min-[375px]:text-[11px] sm:text-sm font-bold rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                      activeSafetyTab === 'pace'
+                        ? 'bg-black text-[#FFC928] shadow-md'
+                        : 'text-neutral-800 hover:text-black'
+                    }`}
+                  >
+                    Gentle Trips
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveSafetyTab('stays')}
+                    className={`flex-1 sm:flex-none text-center px-1 sm:px-4 py-1.5 sm:py-2 text-[10px] min-[375px]:text-[11px] sm:text-sm font-bold rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                      activeSafetyTab === 'stays'
+                        ? 'bg-black text-[#FFC928] shadow-md'
+                        : 'text-neutral-800 hover:text-black'
+                    }`}
+                  >
+                    Easy Stays
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setActiveSafetyTab('dining')}
+                    className={`flex-1 sm:flex-none text-center px-1 sm:px-4 py-1.5 sm:py-2 text-[10px] min-[375px]:text-[11px] sm:text-sm font-bold rounded-lg transition-all cursor-pointer whitespace-nowrap ${
+                      activeSafetyTab === 'dining'
+                        ? 'bg-black text-[#FFC928] shadow-md'
+                        : 'text-neutral-800 hover:text-black'
+                    }`}
+                  >
+                    Special Meals
+                  </button>
+                </div>
               </div>
 
               {/* Tab Content Box */}
-              <div className="p-6 bg-white rounded-2xl border border-neutral-300 shadow-sm min-h-[160px]">
+              <div className="p-3.5 sm:p-4 lg:p-4.5 bg-white rounded-2xl border border-neutral-300 shadow-sm mt-3 sm:mt-3.5">
                 {activeSafetyTab === 'medical' && (
-                  <div className="space-y-3">
-                    <h4 className="font-bold text-base text-black flex items-center gap-2">
-                      <Stethoscope className="w-5 h-5 text-[#FFC928]" />
+                  <div className="space-y-2.5">
+                    <h4 className="font-bold text-sm sm:text-base text-black flex items-center gap-2">
+                      <Stethoscope className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFC928]" />
                       Doctor on Call, Vital Signs Checks & First Aid
                     </h4>
-                    <p className="text-sm text-neutral-600 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                       Our tour manager carries automated blood pressure monitors, fingertip pulse oximeters, thermometer, and sterile first-aid dressings. In high-altitude trips (like Kashmir or Ladakh), certified supplemental oxygen is maintained in every transport coach.
                     </p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-700 font-medium pt-2">
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Pre-travel medical clearance forms</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Daily medication schedule alerts</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Comprehensive senior insurance</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> 24/7 family emergency hotline</li>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-neutral-700 font-medium pt-1">
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Pre-travel medical clearance forms</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Daily medication schedule alerts</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Comprehensive senior insurance</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> 24/7 family emergency hotline</li>
                     </ul>
                   </div>
                 )}
 
                 {activeSafetyTab === 'pace' && (
-                  <div className="space-y-3">
-                    <h4 className="font-bold text-base text-black flex items-center gap-2">
-                      <Clock className="w-5 h-5 text-[#FFC928]" />
+                  <div className="space-y-2.5">
+                    <h4 className="font-bold text-sm sm:text-base text-black flex items-center gap-2">
+                      <Clock className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFC928]" />
                       Zero Morning Rush & Ample Leisure
                     </h4>
-                    <p className="text-sm text-neutral-600 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                       Sightseeing starts only after 9:30 AM following an unhurried, nourishing breakfast. All drives between sights are capped at comfortable 1.5–2 hour stretches with restroom breaks at clean, sanitized partner cafeterias.
                     </p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-700 font-medium pt-2">
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Clean European-style washrooms</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Low-entry coach steps & handrails</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Dedicated seat cushioning</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Ample tea & coffee pauses</li>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-neutral-700 font-medium pt-1">
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Clean European-style washrooms</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Low-entry coach steps & handrails</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Dedicated seat cushioning</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Ample tea & coffee pauses</li>
                     </ul>
                   </div>
                 )}
 
                 {activeSafetyTab === 'stays' && (
-                  <div className="space-y-3">
-                    <h4 className="font-bold text-base text-black flex items-center gap-2">
-                      <ShieldCheck className="w-5 h-5 text-[#FFC928]" />
+                  <div className="space-y-2.5">
+                    <h4 className="font-bold text-sm sm:text-base text-black flex items-center gap-2">
+                      <ShieldCheck className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFC928]" />
                       Hand-Audited Senior-Friendly Accommodations
                     </h4>
-                    <p className="text-sm text-neutral-600 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                       We stay only in premium heritage and 4-star/5-star properties audited for elevator accessibility. Room allocations are prioritized for lower floors or direct proximity to the main elevators to eliminate long corridor walks.
                     </p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-700 font-medium pt-2">
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Anti-slip bathroom mats in every room</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Non-slip walking pathways</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Shower stools available upon request</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Well-lit bedside switch controls</li>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-neutral-700 font-medium pt-1">
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Anti-slip bathroom mats in every room</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Non-slip walking pathways</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Shower stools available upon request</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Well-lit bedside switch controls</li>
                     </ul>
                   </div>
                 )}
 
                 {activeSafetyTab === 'dining' && (
-                  <div className="space-y-3">
-                    <h4 className="font-bold text-base text-black flex items-center gap-2">
-                      <Coffee className="w-5 h-5 text-[#FFC928]" />
+                  <div className="space-y-2.5">
+                    <h4 className="font-bold text-sm sm:text-base text-black flex items-center gap-2">
+                      <Coffee className="w-4 h-4 sm:w-5 sm:h-5 text-[#FFC928]" />
                       Homestyle, Low-Sodium & Vegetarian Delicacies
                     </h4>
-                    <p className="text-sm text-neutral-600 leading-relaxed">
+                    <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
                       Enjoying regional flavours should never cause digestive upset. We work directly with executive hotel chefs to ensure mild spices, pure ghee/olive oil preparation, hot khichdi/soups on request, and strict adherence to dietary prescriptions.
                     </p>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-neutral-700 font-medium pt-2">
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Pure Vegetarian & Jain counters</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Diabetic-friendly dessert options</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Sealed mineral water bottles</li>
-                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-emerald-600" /> Warm milk at bedtime upon request</li>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 sm:gap-2 text-[11px] sm:text-xs text-neutral-700 font-medium pt-1">
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Pure Vegetarian & Jain counters</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Diabetic-friendly dessert options</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Sealed mineral water bottles</li>
+                      <li className="flex items-center gap-1.5"><CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" /> Warm milk at bedtime upon request</li>
                     </ul>
                   </div>
                 )}
+              </div>
+            </div>
+
+            {/* Medical Assurance Photo Card on the right matching left column height */}
+            <div className="lg:col-span-5 flex flex-col justify-start">
+              <div className="rounded-2xl overflow-hidden shadow-xl border-2 border-black bg-white flex flex-col h-full max-h-[440px] lg:max-h-[455px] xl:max-h-[470px]">
+                <img
+                  src={doctorAssuranceImg}
+                  alt="Doctor and medical care coordinator reviewing senior travel checklist"
+                  className="w-full flex-1 h-[220px] sm:h-[250px] lg:h-[295px] xl:h-[310px] min-h-[200px] object-cover"
+                />
+                <div className="p-3.5 sm:p-4 bg-black text-white shrink-0">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] sm:text-xs uppercase font-bold tracking-wider text-[#FFC928]">
+                      Certified Medical Safety Protocol
+                    </span>
+                    <span className="text-[11px] sm:text-xs font-semibold text-neutral-300">ISO 9001:2015 Standards</span>
+                  </div>
+                  <h4 className="font-bold text-xs sm:text-sm lg:text-[14px] mt-1 text-white">
+                    Emergency Hospital Network in All 45+ Destinations
+                  </h4>
+                </div>
               </div>
             </div>
           </div>
@@ -497,121 +505,10 @@ export const AboutUs: React.FC<AboutUsProps> = ({
       </section>
 
       {/* 5. SENIOR TRAVELLER REVIEWS & FAMILY TESTIMONIALS */}
-      <section className="py-8 sm:py-16 bg-white border-y border-neutral-200">
-        <div className="w-[calc(100%-24px)] sm:w-[calc(100%-48px)] md:w-[calc(100%-76px)] max-w-none mx-auto">
-          <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12">
-            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-black bg-[#FFC928]/30 px-3 py-1 rounded-md border border-[#FFC928]">
-              <Star className="w-3.5 h-3.5 fill-[#FFC928] text-black" />
-              <span>Real Stories From Real Families</span>
-            </div>
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-black tracking-tight mt-3">
-              Cherished Moments from Our Senior Travelers
-            </h2>
-            <p className="mt-3 text-sm sm:text-base text-neutral-600">
-              Read how parents and their sons and daughters felt about travelling with ParentHolidays.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-            {/* Review 1 */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-[#FAF7F0] border border-[#E8E2D2] flex flex-col justify-between shadow-sm">
-              <div>
-                <div className="flex items-center gap-1 text-[#FFC928] mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#FFC928]" />
-                  ))}
-                </div>
-                <p className="italic text-sm text-neutral-800 leading-relaxed mb-4">
-                  "At 73, I was terrified of going on a group trip to Kashmir. But ParentHolidays took care of everything: hot water bottles in Dal Lake, zero stair climbs, and the wonderful tour manager Mr. Alok checked our BP twice a day. We felt so safe and pampered!"
-                </p>
-              </div>
-              <div className="pt-4 border-t border-[#E8E2D2] flex items-center justify-between">
-                <div>
-                  <div className="font-bold text-sm text-black">Ramesh & Savita Gupta</div>
-                  <div className="text-xs text-neutral-500">Ages 73 & 69 · Kashmir Paradise Tour</div>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-black text-[#FFC928] flex items-center justify-center font-bold text-xs">
-                  RG
-                </div>
-              </div>
-            </div>
-
-            {/* Review 2 */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-[#FAF7F0] border border-[#E8E2D2] flex flex-col justify-between shadow-sm">
-              <div>
-                <div className="flex items-center gap-1 text-[#FFC928] mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#FFC928]" />
-                  ))}
-                </div>
-                <p className="italic text-sm text-neutral-800 leading-relaxed mb-4">
-                  "I booked the Switzerland Alpine Express for my mother's 70th birthday. The daily photo updates sent to our family WhatsApp group kept us totally at ease. She made lifelong friends in the group and hasn't stopped smiling since she came back!"
-                </p>
-              </div>
-              <div className="pt-4 border-t border-[#E8E2D2] flex items-center justify-between">
-                <div>
-                  <div className="font-bold text-sm text-black">Siddharth Nambiar (Son)</div>
-                  <div className="text-xs text-neutral-500">Booked for Mrs. Malini (Age 70) · Switzerland</div>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-black text-[#FFC928] flex items-center justify-center font-bold text-xs">
-                  SN
-                </div>
-              </div>
-            </div>
-
-            {/* Review 3 */}
-            <div className="p-6 sm:p-7 rounded-2xl bg-[#FAF7F0] border border-[#E8E2D2] flex flex-col justify-between shadow-sm">
-              <div>
-                <div className="flex items-center gap-1 text-[#FFC928] mb-3">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-[#FFC928]" />
-                  ))}
-                </div>
-                <p className="italic text-sm text-neutral-800 leading-relaxed mb-4">
-                  "The food was purely sattvic and mild, the hotel had direct elevator access to the garden, and our luggage was already in our room before we reached. Never seen such thoughtful service anywhere in India."
-                </p>
-              </div>
-              <div className="pt-4 border-t border-[#E8E2D2] flex items-center justify-between">
-                <div>
-                  <div className="font-bold text-sm text-black">Dr. K.K. Shastry & Vimla</div>
-                  <div className="text-xs text-neutral-500">Ages 77 & 72 · Kerala Ayurvedic Retreat</div>
-                </div>
-                <div className="w-8 h-8 rounded-full bg-black text-[#FFC928] flex items-center justify-center font-bold text-xs">
-                  KS
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <TestimonialsSection />
 
       {/* 7. BOTTOM EXPLORE CTA SECTION */}
-      <section className="py-12 bg-black text-white border-t-2 border-[#FFC928]">
-        <div className="w-[calc(100%-24px)] sm:w-[calc(100%-48px)] md:w-[calc(100%-76px)] max-w-none mx-auto text-center space-y-6">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white">
-            Ready to Gift Your Parents Their Dream Vacation?
-          </h2>
-          <p className="text-sm sm:text-base text-neutral-300 max-w-2xl mx-auto">
-            Explore our curated catalogue of 16 popular domestic and international packages handpicked for senior comfort and safety.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-            <button
-              type="button"
-              onClick={onExplorePackages}
-              className="px-6 sm:px-8 py-3.5 bg-[#FFC928] hover:bg-[#ffbf00] text-black font-extrabold text-sm sm:text-base rounded-xl transition-all shadow-lg hover:shadow-xl cursor-pointer"
-            >
-              Explore Popular Holiday Packages
-            </button>
-            <a
-              href="tel:+918005550199"
-              className="px-6 sm:px-8 py-3.5 bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-700 hover:border-[#FFC928] font-bold text-sm sm:text-base rounded-xl transition-all flex items-center gap-2 cursor-pointer"
-            >
-              <Phone className="w-4 h-4 text-[#FFC928]" />
-              <span>Call Senior Helpdesk: +91 800-555-0199</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      <DreamVacationCTA onExplorePackages={onExplorePackages} />
     </div>
   );
 };

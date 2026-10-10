@@ -143,7 +143,7 @@ export const PromotionalCarousel: React.FC<PromotionalCarouselProps> = ({
   return (
     <section
       aria-label="Holiday Promotional Banners"
-      className="w-full py-8 sm:py-10 lg:py-12 bg-[#FAF7F0] select-none"
+      className="w-full py-4 sm:py-6 lg:py-7 bg-[#FAF7F0] select-none"
     >
       {/* Centred Container (approx 38px / 1cm space on left & right on desktop, 12-16px on mobile) */}
       <div className="w-[calc(100%-24px)] sm:w-[calc(100%-32px)] md:w-[calc(100%-76px)] max-w-none mx-auto">
