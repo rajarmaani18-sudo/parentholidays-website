@@ -3,8 +3,7 @@ import {
   Home,
   Building2,
   Luggage,
-  Users,
-  ChevronDown,
+  HelpCircle,
   Star,
   Phone,
   User,
@@ -13,16 +12,18 @@ import {
   LogOut,
   ShieldCheck,
   Check,
+  ChevronDown,
 } from 'lucide-react';
 import ParentsHolidayLogo from './ParentsHolidayLogo';
 import AuthModal, { UserProfile } from './AuthModal';
 import ContactModal from './ContactModal';
+import FaqModal from './FaqModal';
 
 export type NavItemKey =
   | 'home'
   | 'about-us'
   | 'holiday-packages'
-  | 'group-tours'
+  | 'faqs'
   | 'testimonials'
   | 'contact-us'
   | 'sign-up';
@@ -45,29 +46,19 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       setActiveItem(currentActiveItem);
     }
   }, [currentActiveItem]);
-  const [isGroupToursOpen, setIsGroupToursOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isFaqModalOpen, setIsFaqModalOpen] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState<UserProfile | null>(null);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
 
-  // Group Tours dropdown refs for click outside
-  const groupToursDropdownRef = useRef<HTMLDivElement>(null);
-  const groupToursButtonRef = useRef<HTMLButtonElement>(null);
+  // User menu ref for click outside
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   // Close dropdown on click outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (
-        groupToursDropdownRef.current &&
-        !groupToursDropdownRef.current.contains(event.target as Node) &&
-        groupToursButtonRef.current &&
-        !groupToursButtonRef.current.contains(event.target as Node)
-      ) {
-        setIsGroupToursOpen(false);
-      }
       if (
         userMenuRef.current &&
         !userMenuRef.current.contains(event.target as Node)
@@ -82,13 +73,13 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
     };
   }, []);
 
-  // Handle escape key to close dropdowns / modals
+  // Handle escape key to close modals
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
-        setIsGroupToursOpen(false);
         setIsMobileMenuOpen(false);
         setIsSignUpModalOpen(false);
+        setIsFaqModalOpen(false);
       }
     };
 
@@ -104,22 +95,17 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       setIsMobileMenuOpen(false);
       return;
     }
+    if (key === 'faqs') {
+      setIsFaqModalOpen(true);
+      setIsMobileMenuOpen(false);
+      return;
+    }
     setActiveItem(key);
     if (key === 'sign-up') {
       setIsSignUpModalOpen(true);
     }
-    if (key !== 'group-tours') {
-      setIsGroupToursOpen(false);
-    }
     setIsMobileMenuOpen(false);
     onNavigate?.(key);
-  };
-
-  const handleGroupTourSubSelect = (subOption: 'Domestic' | 'International') => {
-    setActiveItem('group-tours');
-    setIsGroupToursOpen(false);
-    setIsMobileMenuOpen(false);
-    onNavigate?.('group-tours', `${subOption} Group Tours`);
   };
 
   return (
@@ -232,72 +218,31 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
                 />
               </button>
 
-              {/* 4. Group Tours (Dropdown) */}
-              <div
-                className="relative h-full flex items-center"
-                onMouseEnter={() => setIsGroupToursOpen(true)}
-                onMouseLeave={() => setIsGroupToursOpen(false)}
+              {/* 4. FAQs */}
+              <button
+                type="button"
+                onClick={() => handleItemClick('faqs')}
+                className={`group relative flex items-center gap-2 h-full px-1 text-[14px] lg:text-[14.5px] font-medium transition-colors duration-250 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#FFC928] focus-visible:outline-offset-2 ${
+                  activeItem === 'faqs' || isFaqModalOpen
+                    ? 'text-[#FFC928]'
+                    : 'text-[#F5F5F5] hover:text-[#FFC928]'
+                }`}
+                aria-current={activeItem === 'faqs' ? 'page' : undefined}
               >
-                <button
-                  ref={groupToursButtonRef}
-                  type="button"
-                  onClick={() => setIsGroupToursOpen((prev) => !prev)}
-                  className={`group relative flex items-center gap-2 h-full px-1 text-[14px] lg:text-[14.5px] font-medium transition-colors duration-250 cursor-pointer focus-visible:outline-2 focus-visible:outline-[#FFC928] focus-visible:outline-offset-2 ${
-                    activeItem === 'group-tours' || isGroupToursOpen
-                      ? 'text-[#FFC928]'
-                      : 'text-[#F5F5F5] hover:text-[#FFC928]'
+                <HelpCircle
+                  className="w-[17px] h-[17px] shrink-0 transition-colors duration-250"
+                  strokeWidth={1.8}
+                />
+                <span className="whitespace-nowrap tracking-normal">FAQs</span>
+                <span
+                  className={`absolute bottom-0 left-0 h-[2.5px] w-full bg-[#FFC928] transition-transform duration-300 ease-out origin-left pointer-events-none ${
+                    activeItem === 'faqs'
+                      ? 'scale-x-100 opacity-100'
+                      : 'scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100'
                   }`}
-                  aria-haspopup="true"
-                  aria-expanded={isGroupToursOpen}
-                >
-                  <Users
-                    className="w-[17px] h-[17px] shrink-0 transition-colors duration-250"
-                    strokeWidth={1.8}
-                  />
-                  <span className="whitespace-nowrap tracking-normal">Group Tours</span>
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 shrink-0 transition-transform duration-200 ${
-                      isGroupToursOpen ? 'rotate-180 text-[#FFC928]' : ''
-                    }`}
-                    strokeWidth={2}
-                  />
-                  <span
-                    className={`absolute bottom-0 left-0 h-[2.5px] w-full bg-[#FFC928] transition-transform duration-300 ease-out origin-left pointer-events-none ${
-                      activeItem === 'group-tours'
-                        ? 'scale-x-100 opacity-100'
-                        : 'scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100'
-                    }`}
-                    aria-hidden="true"
-                  />
-                </button>
-
-                {/* Dropdown Menu */}
-                {isGroupToursOpen && (
-                  <div
-                    ref={groupToursDropdownRef}
-                    className="absolute top-full left-0 mt-[1px] w-56 bg-[#0a0a0a] border border-[#262626] shadow-xl py-1.5 z-50 animate-in fade-in slide-in-from-top-1 duration-150"
-                    role="menu"
-                    aria-label="Group Tours Submenu"
-                  >
-                    <button
-                      type="button"
-                      role="menuitem"
-                      onClick={() => handleGroupTourSubSelect('Domestic')}
-                      className="w-full text-left px-4 py-2 text-[14px] text-[#F5F5F5] hover:text-[#FFC928] hover:bg-[#141414] transition-colors duration-200 cursor-pointer"
-                    >
-                      Domestic Group Tours
-                    </button>
-                    <button
-                      type="button"
-                      role="menuitem"
-                      onClick={() => handleGroupTourSubSelect('International')}
-                      className="w-full text-left px-4 py-2 text-[14px] text-[#F5F5F5] hover:text-[#FFC928] hover:bg-[#141414] transition-colors duration-200 cursor-pointer border-t border-[#1f1f1f]"
-                    >
-                      International Group Tours
-                    </button>
-                  </div>
-                )}
-              </div>
+                  aria-hidden="true"
+                />
+              </button>
 
               {/* 5. Testimonials */}
               <button
@@ -524,46 +469,19 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
               <span>Holiday Packages</span>
             </button>
 
-            {/* 4. Group Tours (Accordion) */}
-            <div className="border-b border-[#1a1a1a]">
-              <button
-                type="button"
-                onClick={() => setIsGroupToursOpen((prev) => !prev)}
-                className={`w-full flex items-center justify-between py-2.5 px-3 text-[14.5px] font-medium transition-colors ${
-                  activeItem === 'group-tours'
-                    ? 'text-[#FFC928]'
-                    : 'text-[#F5F5F5] hover:text-[#FFC928]'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <Users className="w-[18px] h-[18px]" strokeWidth={1.8} />
-                  <span>Group Tours</span>
-                </div>
-                <ChevronDown
-                  className={`w-4 h-4 transition-transform duration-200 ${
-                    isGroupToursOpen ? 'rotate-180 text-[#FFC928]' : ''
-                  }`}
-                />
-              </button>
-              {isGroupToursOpen && (
-                <div className="bg-[#141414] py-1 pl-10 pr-4 space-y-1">
-                  <button
-                    type="button"
-                    onClick={() => handleGroupTourSubSelect('Domestic')}
-                    className="w-full text-left py-2 text-[13.5px] text-[#e0e0e0] hover:text-[#FFC928] transition-colors"
-                  >
-                    Domestic Group Tours
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => handleGroupTourSubSelect('International')}
-                    className="w-full text-left py-2 text-[13.5px] text-[#e0e0e0] hover:text-[#FFC928] transition-colors border-t border-[#222222]"
-                  >
-                    International Group Tours
-                  </button>
-                </div>
-              )}
-            </div>
+            {/* 4. FAQs */}
+            <button
+              type="button"
+              onClick={() => handleItemClick('faqs')}
+              className={`w-full flex items-center gap-3 py-2.5 px-3 text-[14.5px] font-medium rounded-none border-b border-[#1a1a1a] transition-colors ${
+                activeItem === 'faqs'
+                  ? 'text-[#FFC928] border-[#FFC928]/40'
+                  : 'text-[#F5F5F5] hover:text-[#FFC928]'
+              }`}
+            >
+              <HelpCircle className="w-[18px] h-[18px]" strokeWidth={1.8} />
+              <span>FAQs</span>
+            </button>
 
             {/* 5. Testimonials */}
             <button
@@ -653,6 +571,12 @@ export const NavigationBar: React.FC<NavigationBarProps> = ({
       <ContactModal
         isOpen={isContactModalOpen}
         onClose={() => setIsContactModalOpen(false)}
+      />
+
+      {/* FAQs Modal */}
+      <FaqModal
+        isOpen={isFaqModalOpen}
+        onClose={() => setIsFaqModalOpen(false)}
       />
     </>
   );

@@ -67,17 +67,7 @@ export default function App() {
         setTimeout(() => {
           const el = document.getElementById('testimonials');
           if (el) {
-            const header = document.querySelector('header');
-            const headerHeight = header
-              ? header.getBoundingClientRect().height
-              : window.innerWidth < 640
-              ? 96
-              : 104;
-            const elementTop = el.getBoundingClientRect().top + window.pageYOffset;
-            window.scrollTo({
-              top: Math.max(0, elementTop - headerHeight),
-              behavior: 'smooth',
-            });
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
         }, 120);
       } else if (hash === '#popular-packages') {
@@ -130,17 +120,7 @@ export default function App() {
       const scrollToTestimonials = () => {
         const el = document.getElementById('testimonials');
         if (el) {
-          const header = document.querySelector('header');
-          const headerHeight = header
-            ? header.getBoundingClientRect().height
-            : window.innerWidth < 640
-            ? 96
-            : 104;
-          const elementTop = el.getBoundingClientRect().top + window.pageYOffset;
-          window.scrollTo({
-            top: Math.max(0, elementTop - headerHeight),
-            behavior: 'smooth',
-          });
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       };
 

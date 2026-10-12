@@ -1,0 +1,23 @@
+<svg width="32" height="32" viewBox="0 0 44 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sunGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stopColor="#FFD200" />
+      <stop offset="45%" stopColor="#FF7A00" />
+      <stop offset="100%" stopColor="#E62E00" />
+    </linearGradient>
+    <linearGradient id="swooshGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#00E5FF" />
+      <stop offset="50%" stopColor="#0099FF" />
+      <stop offset="100%" stopColor="#0055EE" />
+    </linearGradient>
+  </defs>
+  <circle cx="23" cy="20" r="15" fill="url(#sunGrad)" />
+  <g transform="translate(14, 11) rotate(-15 10 10)">
+    <path d="M2 13 C4 11 14 7 19 6 C20.5 5.5 21 6.5 20 7.5 C16 11 11 17 8 20 L6 19 L8 14 L4 15 L2 14 Z" fill="#000000" />
+    <path d="M8 10 L15 2 C15.5 1.5 16.5 2 16 3 L12 9 Z" fill="#000000" />
+    <path d="M9 13 L8 19 C8 19.5 7.5 19.5 7 19 L6 14 Z" fill="#000000" />
+    <path d="M3 14 L2 10.5 C2 10 2.5 10 3 10.5 L4.5 13.5 Z" fill="#000000" />
+  </g>
+  <path d="M5 24 C5 22 7 24 9 27 C12 32 17 37 25 36 C31 35 36 31 38 27 C34 32 29 34 23 34 C15 34 9 29 8 25 C7.5 23 6 21 5 24 Z" fill="url(#swooshGrad)" />
+  <path d="M5 24 C4 20 6 18 7 17 C6.5 19 5.5 21 5 24 Z" fill="#00E5FF" />
+</svg>
